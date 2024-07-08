@@ -61,6 +61,9 @@ dependencies {
     implementation(libs.androidx.material3)
     // new libs to add =================
     implementation("androidx.compose.material:material:1.6.8")
+    implementation(libs.androidx.media3.common)
+    implementation ("androidx.navigation:navigation-compose")
+    implementation(libs.androidx.navigation.runtime.ktx)
     // new libs end block ==============
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

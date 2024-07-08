@@ -27,11 +27,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 
 @Composable
-fun BottomNavigationBar(modifier: Modifier = Modifier) {
+fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavHostController) {
     var selectedIcon by remember { mutableStateOf("") }
 
     Row(
@@ -44,13 +46,17 @@ fun BottomNavigationBar(modifier: Modifier = Modifier) {
             icon = Icons.Default.Home,
             label = "Home",
             iconColor = if (selectedIcon == "Home") LightColorScheme.primary else LightColorScheme.secondary,
-            onClick = { selectedIcon = "Home" }
+            onClick = { selectedIcon = "Home"
+                navController.navigate("home")
+            }
         )
         IconButtonWithLabel(
             icon = Icons.Default.Place,
             label = "Map",
             iconColor = if (selectedIcon == "Map") LightColorScheme.primary else LightColorScheme.secondary,
-            onClick = { selectedIcon = "Map" }
+            onClick = { selectedIcon = "Map"
+                navController.navigate("map")
+            }
         )
         IconButtonWithLabel(
             icon = Icons.Default.Person,
@@ -102,7 +108,8 @@ fun IconButtonWithLabel(
 @Preview(showBackground = true)
 @Composable
 fun PreviewBottomNavigationBar() {
+    val navController = rememberNavController()
     Kotlin_PortfolioTheme {
-        BottomNavigationBar()
+        BottomNavigationBar(navController = navController)
     }
 }

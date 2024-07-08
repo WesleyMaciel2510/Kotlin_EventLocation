@@ -1,5 +1,4 @@
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -15,27 +14,24 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.media3.common.util.Log
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 
 @Composable
 fun SearchHeaderBar(
     modifier: Modifier = Modifier,
-    searchText: String,
-    onSearchTextChanged: (String) -> Unit
+    searchText: TextFieldValue,
+    onSearchTextChanged: (TextFieldValue) -> Unit
 ) {
-    var searchText by remember { mutableStateOf(TextFieldValue()) }
-
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -66,7 +62,7 @@ fun SearchHeaderBar(
             // Input text field with placeholder
             BasicTextField(
                 value = searchText,
-                onValueChange = { searchText = it },
+                onValueChange = { onSearchTextChanged(it) },
                 singleLine = true,
                 textStyle = MaterialTheme.typography.body1,
                 modifier = Modifier
@@ -93,14 +89,15 @@ fun SearchHeaderBar(
 @Composable
 fun PreviewSearchBar() {
     Kotlin_PortfolioTheme {
-        val searchText = remember { mutableStateOf("") }
+        val searchText = remember { mutableStateOf(TextFieldValue("")) }
         SearchHeaderBar(
             searchText = searchText.value,
             onSearchTextChanged = { newText ->
                 searchText.value = newText
                 // Logging the typed text to Logcat
-                Log.d("SearchHeaderBar", "Typed text: $newText")
+                Log.d("SearchHeaderBar", "Typed text: ${newText.text}")
             }
         )
     }
 }
+

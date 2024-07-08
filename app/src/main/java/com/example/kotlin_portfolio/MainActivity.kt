@@ -9,12 +9,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.kotlin_portfolio.screens.home.HomeScreen
+import androidx.navigation.compose.rememberNavController
+import com.example.kotlin_portfolio.routes.AppNavigation
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 
@@ -37,14 +39,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun App(modifier: Modifier = Modifier) {
+    val navController = rememberNavController()
     Column(
         modifier = modifier
             .fillMaxSize()
+            .fillMaxWidth()
             .background(color = LightColorScheme.background)
     ) {
-        HomeScreen()
+        AppNavigation(navController = navController, modifier = Modifier.weight(1f))
         Spacer(modifier = Modifier.weight(1f))
-        BottomNavigationBar()
+        BottomNavigationBar(navController = navController)
     }
 }
 
