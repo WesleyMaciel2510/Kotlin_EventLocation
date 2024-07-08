@@ -18,4 +18,5 @@ val Blue40 = Color(0xFF0288D1)
 val White = Color(0xFFFFFFFF)
 val Cyan40 = Color(0xFF00ACC1)
 
-val BgBorder = Color(0xFF0A121F)
+//val BgBorder = Color(0xFF0A121F)
+val BgBorder = Color(0xFF0a2b73)

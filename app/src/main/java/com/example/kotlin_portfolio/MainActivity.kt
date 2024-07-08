@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlin_portfolio.screens.home.HomeScreen
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 
@@ -41,6 +42,7 @@ fun App(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .background(color = LightColorScheme.background)
     ) {
+        HomeScreen()
         Spacer(modifier = Modifier.weight(1f))
         BottomNavigationBar()
     }

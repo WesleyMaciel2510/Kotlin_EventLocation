@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Place
@@ -54,12 +53,6 @@ fun BottomNavigationBar(modifier: Modifier = Modifier) {
             onClick = { selectedIcon = "Map" }
         )
         IconButtonWithLabel(
-            icon = Icons.Default.Favorite,
-            label = "Favorites",
-            iconColor = if (selectedIcon == "Favorites") LightColorScheme.primary else LightColorScheme.secondary,
-            onClick = { selectedIcon = "Favorites" }
-        )
-        IconButtonWithLabel(
             icon = Icons.Default.Person,
             label = "Profile",
             iconColor = if (selectedIcon == "Profile") LightColorScheme.primary else LightColorScheme.secondary,
@@ -83,11 +76,12 @@ fun IconButtonWithLabel(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(12.dp)
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
     ) {
         IconButton(
             onClick = onClick,
-            modifier = Modifier.height(52.dp),
+            modifier = Modifier.height(50.dp),
             content = {
                 Icon(
                     imageVector = icon,
