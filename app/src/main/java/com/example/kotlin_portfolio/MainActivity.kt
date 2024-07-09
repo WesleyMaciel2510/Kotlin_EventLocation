@@ -7,9 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -40,15 +38,20 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .fillMaxWidth()
-            .background(color = LightColorScheme.background)
-    ) {
-        AppNavigation(navController = navController, modifier = Modifier.weight(1f))
-        Spacer(modifier = Modifier.weight(1f))
-        BottomNavigationBar(navController = navController)
+    Scaffold(
+        // add here what is fixed
+        bottomBar = {
+            BottomNavigationBar(navController = navController)
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .background(color = LightColorScheme.background)
+        ) {
+            AppNavigation(navController = navController, modifier = Modifier.weight(1f))
+        }
     }
 }
 

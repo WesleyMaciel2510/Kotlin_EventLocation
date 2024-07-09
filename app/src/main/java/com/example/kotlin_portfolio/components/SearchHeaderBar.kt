@@ -51,7 +51,7 @@ fun SearchHeaderBar(
         ) {
             IconButton(
                 onClick = { /* Handle menu icon click */ },
-                modifier = Modifier.size(30.dp)
+                modifier = Modifier.size(40.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Menu,
@@ -79,7 +79,7 @@ fun SearchHeaderBar(
                 ) {
                     IconButton(
                         onClick = { /* Handle search icon click */ },
-                        modifier = Modifier.padding(start = 12.dp, end = 8.dp)
+                        modifier = Modifier.padding(start = 12.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Default.Search,
@@ -96,7 +96,7 @@ fun SearchHeaderBar(
                         textStyle = MaterialTheme.typography.body1,
                         modifier = Modifier.padding(end = 12.dp),
                         decorationBox = { innerTextField ->
-                            Box(contentAlignment = Alignment.CenterStart) {
+                            Box() {
                                 if (searchText.text.isEmpty()) {
                                     Text(
                                         text = "Events and Places",
