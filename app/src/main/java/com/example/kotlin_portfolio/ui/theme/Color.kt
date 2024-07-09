@@ -13,7 +13,7 @@ val Blue50 = Color(0XFF4596A8)
 val Green40 = Color(0xFF29C252)
 val White = Color(0xFFFFFFFF)
 
-val NightBlack = Color(0xFF0E0D0C)
+val NightBlack = Color(0xFF141414)
 val BgBorder = Color(0xFF235789)
 val Purple40 = Color(0xFF444DB3)
 

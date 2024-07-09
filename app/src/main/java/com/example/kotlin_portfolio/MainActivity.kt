@@ -27,8 +27,8 @@ class MainActivity : ComponentActivity() {
             Kotlin_PortfolioTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                ) { innerPadding ->
-                    App(modifier = Modifier.padding(innerPadding))
+                ) {
+                    App()
                 }
             }
         }
