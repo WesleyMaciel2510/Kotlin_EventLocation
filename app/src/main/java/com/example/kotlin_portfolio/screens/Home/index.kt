@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.kotlin_portfolio.components.lazyRows.EventTypeLazyRow
+import com.example.kotlin_portfolio.components.lazyRows.LastEventLazyRow
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 
@@ -42,13 +42,15 @@ fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier) 
                 modifier = Modifier.fillMaxWidth()
             )
         }
-
-        Text(
-            text = "Welcome to HomeScreen!",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.secondary,
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .background(color = LightColorScheme.background)
+                .padding(10.dp)
+        ) {
+            EventTypeLazyRow()
+            LastEventLazyRow()
+        }
     }
 }
 
