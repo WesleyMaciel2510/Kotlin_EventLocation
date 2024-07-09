@@ -3,9 +3,13 @@ import androidx.annotation.OptIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Icon
@@ -13,6 +17,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -34,54 +39,77 @@ fun SearchHeaderBar(
     searchText: TextFieldValue,
     onSearchTextChanged: (TextFieldValue) -> Unit
 ) {
-    Box(
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .background(color = LightColorScheme.outline)
-            .padding(horizontal = 15.dp, vertical = 20.dp)
-            .border(
-                width = 2.dp,
-                color = Color.White,
-                shape = RoundedCornerShape(8.dp)
-            )
+            .padding(horizontal = 7.dp, vertical = 20.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
             IconButton(
-                onClick = { /* Handle search icon click */ },
-                modifier = Modifier.padding(start = 12.dp, end = 8.dp)
+                onClick = { /* Handle menu icon click */ },
+                modifier = Modifier.size(30.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search",
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = "Menu",
                     tint = Color.White
+
                 )
             }
 
-            // Input text field with placeholder
-            BasicTextField(
-                value = searchText,
-                onValueChange = { onSearchTextChanged(it) },
-                singleLine = true,
-                textStyle = MaterialTheme.typography.body1,
+            Spacer(modifier = Modifier.width(8.dp))
+
+            // Box with search bar and border
+            Box(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(end = 12.dp),
-                decorationBox = { innerTextField ->
-                    Box(contentAlignment = Alignment.CenterStart) {
-                        if (searchText.text.isEmpty()) {
-                            Text(
-                                text = "Events and Places",
-                                style = MaterialTheme.typography.body1.copy(color = Color.White.copy(alpha = 0.6f)),
-                                modifier = Modifier.padding(start = 16.dp)
-                            )
-                        }
-                        innerTextField()
+                    .background(color = LightColorScheme.outline)
+                    .border(
+                        width = 2.dp,
+                        color = Color.White,
+                        shape = RoundedCornerShape(8.dp)
+                    )
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconButton(
+                        onClick = { /* Handle search icon click */ },
+                        modifier = Modifier.padding(start = 12.dp, end = 8.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = "Search",
+                            tint = Color.White
+                        )
                     }
+
+                    // Input text field with placeholder
+                    BasicTextField(
+                        value = searchText,
+                        onValueChange = { onSearchTextChanged(it) },
+                        singleLine = true,
+                        textStyle = MaterialTheme.typography.body1,
+                        modifier = Modifier.padding(end = 12.dp),
+                        decorationBox = { innerTextField ->
+                            Box(contentAlignment = Alignment.CenterStart) {
+                                if (searchText.text.isEmpty()) {
+                                    Text(
+                                        text = "Events and Places",
+                                        style = MaterialTheme.typography.body1.copy(color = Color.White.copy(alpha = 0.6f)),
+                                        modifier = Modifier.padding(start = 16.dp)
+                                    )
+                                }
+                                innerTextField()
+                            }
+                        }
+                    )
                 }
-            )
+            }
         }
     }
 }

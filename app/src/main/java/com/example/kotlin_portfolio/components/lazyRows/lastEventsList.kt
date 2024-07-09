@@ -55,7 +55,7 @@ val LastEventItems = listOf(
     LastEventItem(
         R.drawable.banner4,
         "Online Events",
-        "www.meuevento.com.br",
+        "press to see the website",
         "14JUL-15JUL"
     ),
     LastEventItem(

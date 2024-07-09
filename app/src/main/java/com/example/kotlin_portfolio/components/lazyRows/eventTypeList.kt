@@ -1,5 +1,6 @@
 package com.example.kotlin_portfolio.components.lazyRows
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,22 +12,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -34,18 +29,23 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.kotlin_portfolio.R
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 
-// Define a data class for each item
-data class EventTypeItem(val icon: ImageVector, val label: String)
+data class EventTypeItem(val imageRes: Int, val label: String)
 
 val EventTypeItems = listOf(
-    EventTypeItem(Icons.Default.Build, "Movies"),
-    EventTypeItem(Icons.Default.AddCircle, "Shows"),
-    EventTypeItem(Icons.Default.ShoppingCart, "Sports"),
-    EventTypeItem(Icons.Default.Star, "Theater"),
-    EventTypeItem(Icons.Default.DateRange, "StandUp Comedy"),
-    EventTypeItem(Icons.Default.Lock, "Online Events"),
+    EventTypeItem(R.drawable.icon1, "Movies"),
+    EventTypeItem(R.drawable.icon2, "Shows"),
+    EventTypeItem(R.drawable.icon3, "Sports"),
+    EventTypeItem(R.drawable.icon4, "Theater"),
+    EventTypeItem(R.drawable.icon5, "StandUp Comedy"),
+    EventTypeItem(R.drawable.icon6, "Online Events"),
+    EventTypeItem(R.drawable.icon7, "Online Events"),
+    EventTypeItem(R.drawable.icon8, "Online Events"),
+    EventTypeItem(R.drawable.icon9, "Online Events"),
+    EventTypeItem(R.drawable.icon10, "Online Events"),
+
 )
 
 @Composable
@@ -93,14 +93,18 @@ fun EventTypeItemView(item: EventTypeItem) {
                     clip = true
                 }
                 .border(1.dp, Color(0xFF494A52), CircleShape)
-                .background(Color(0xFF2F77bd), shape = CircleShape),
+                .background(Color(0xFF2F77bd), shape = CircleShape)
+                .padding(3.dp),
             contentAlignment = Alignment.Center
         ) {
-            Icon(
-                imageVector = item.icon,
+            val image: Painter = painterResource(id = item.imageRes)
+            Image(
+                painter = image,
                 contentDescription = item.label,
-                tint = Color.White,
-                modifier = Modifier.size(40.dp)
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(70.dp)
+                    .clip(CircleShape)
             )
         }
         Text(
