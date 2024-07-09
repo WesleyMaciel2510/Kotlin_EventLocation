@@ -18,10 +18,10 @@ private val DarkColorScheme = darkColorScheme(
 
 val LightColorScheme = lightColorScheme(
     primary = Blue40,
-    secondary = White,
-    tertiary = Cyan40,
+    secondary = Green40,
+    tertiary = White,
     outline = BgBorder,
-
+    background = White,
 )
 
 /*private val DarkColorScheme = darkColorScheme(

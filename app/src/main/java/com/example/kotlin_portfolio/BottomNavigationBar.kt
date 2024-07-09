@@ -45,7 +45,7 @@ fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavHostCon
         IconButtonWithLabel(
             icon = Icons.Default.Home,
             label = "Home",
-            iconColor = if (selectedIcon == "Home") LightColorScheme.primary else LightColorScheme.secondary,
+            iconColor = if (selectedIcon == "Home") LightColorScheme.primary else LightColorScheme.background,
             onClick = { selectedIcon = "Home"
                 navController.navigate("home")
             }
@@ -53,7 +53,7 @@ fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavHostCon
         IconButtonWithLabel(
             icon = Icons.Default.Place,
             label = "Map",
-            iconColor = if (selectedIcon == "Map") LightColorScheme.primary else LightColorScheme.secondary,
+            iconColor = if (selectedIcon == "Map") LightColorScheme.primary else LightColorScheme.background,
             onClick = { selectedIcon = "Map"
                 navController.navigate("map")
             }
@@ -61,13 +61,13 @@ fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavHostCon
         IconButtonWithLabel(
             icon = Icons.Default.Person,
             label = "Profile",
-            iconColor = if (selectedIcon == "Profile") LightColorScheme.primary else LightColorScheme.secondary,
+            iconColor = if (selectedIcon == "Profile") LightColorScheme.primary else LightColorScheme.background,
             onClick = { selectedIcon = "Profile" }
         )
         IconButtonWithLabel(
             icon = Icons.Filled.AccountBox,
             label = "Wallet",
-            iconColor = if (selectedIcon == "Wallet") LightColorScheme.primary else LightColorScheme.secondary,
+            iconColor = if (selectedIcon == "Wallet") LightColorScheme.primary else LightColorScheme.background,
             onClick = { selectedIcon = "Wallet" }
         )
     }

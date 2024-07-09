@@ -10,13 +10,13 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val Blue80 = Color(0xFFB3E5FC)
+val Blue80 = Color(0xFF0A1121)
 val BlueGrey80 = Color(0xFFB0BEC5)
 val Cyan80 = Color(0xFFB2EBF2)
 
-val Blue40 = Color(0xFF0288D1)
+val Blue40 = Color(0XFF2F97C1)
+val Green40 = Color(0xFF29C252)
 val White = Color(0xFFFFFFFF)
-val Cyan40 = Color(0xFF00ACC1)
 
-//val BgBorder = Color(0xFF0A121F)
-val BgBorder = Color(0xFF0a2b73)
+val NightBlack = Color(0xFF0E0D0C)
+val BgBorder = Color(0xFF235789)

@@ -1,7 +1,9 @@
 package com.example.kotlin_portfolio.screens.home
 
 import SearchHeaderBar
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
+import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 
 @Composable
 fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -26,21 +29,24 @@ fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier) 
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .background(color = LightColorScheme.background)
     ) {
-        SearchHeaderBar(
-            searchText = searchText,
-            onSearchTextChanged = { newText -> searchText = newText },
-            modifier = Modifier.fillMaxWidth()
-        )
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .background(color = LightColorScheme.background)
+        ) {
+            SearchHeaderBar(
+                searchText = searchText,
+                onSearchTextChanged = { newText -> searchText = newText },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+
         Text(
             text = "Welcome to HomeScreen!",
-            style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
-        Text(
-            text = "Your content goes here...",
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.secondary,
             modifier = Modifier.padding(vertical = 8.dp)
         )
     }
