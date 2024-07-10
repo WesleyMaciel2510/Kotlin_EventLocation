@@ -15,12 +15,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,7 +43,7 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
 // REQUEST LOCATION ===============================================
-    val context = LocalContext.current
+    var locationPermission: Boolean by remember { mutableStateOf(false) }
 
     // Register for permission result
     val locationPermissionRequest = rememberLauncherForActivityResult(
@@ -124,11 +127,27 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
             Column(
                 modifier = Modifier
             ){
-                IconAndLabelButton(
-                    buttonLabel = "Choose your city manually",
-                    buttonColor = LightColorScheme.secondary,
-                    onClick = { /* Handle button click */ }
-                )
+                if(!locationPermission){
+                    IconAndLabelButton(
+                        buttonLabel = "Choose your city manually",
+                        buttonColor = LightColorScheme.secondary,
+                        onClick = { Log.d("permission", "cityButton Clicked!")
+                            Log.d("permission", "locationPermission = ${locationPermission}!")
+                            locationPermission = true
+                        }
+                    )
+                } else {
+                    Text(
+                        text = "Conditional Rendering Working.",
+                        style = TextStyle(
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = LightColorScheme.tertiary,
+                        ),
+                        modifier = Modifier.padding(horizontal = 40.dp)
+                    )
+                }
+
             }
         }
     }
