@@ -1,6 +1,9 @@
 package com.example.kotlin_portfolio.screens.home
 
 import SearchHeaderBar
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,7 +29,8 @@ import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 
 @Composable
 fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier) {
-    var searchText by remember { mutableStateOf(TextFieldValue("")) }
+var searchText by remember { mutableStateOf(TextFieldValue("")) }
+
 
     Column(
         modifier = modifier

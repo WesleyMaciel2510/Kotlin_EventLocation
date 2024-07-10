@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.androidx.media3.common)
     implementation ("androidx.navigation:navigation-compose")
     implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.appcompat)
     // new libs end block ==============
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

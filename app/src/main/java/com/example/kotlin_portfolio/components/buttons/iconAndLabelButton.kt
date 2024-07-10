@@ -35,7 +35,7 @@ fun IconAndLabelButton(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .height(55.dp)
+            .height(72.dp)
             .padding(horizontal = 30.dp, vertical = 10.dp)
             .border(
                 width = if (borderColor != null) 2.dp else 0.dp,

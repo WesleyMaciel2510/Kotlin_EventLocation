@@ -1,5 +1,9 @@
 package com.example.kotlin_portfolio.screens.map
 
+import android.Manifest
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -7,15 +11,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Place
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -34,7 +39,31 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
     val image: Painter = painterResource(id = R.drawable.mapscreen_header)
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+// REQUEST LOCATION ===============================================
+    val context = LocalContext.current
 
+    // Register for permission result
+    val locationPermissionRequest = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true -> {
+                // Precise location access granted.
+                Log.d("permission", "Precise location access granted!")
+            }
+            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true -> {
+                // Approximate location access granted.
+                Log.d("permission", "Approximate location access granted!")
+                // Handle your logic here
+            }
+            else -> {
+                // No location access granted.
+                Log.d("permission", "Location access NOT granted!")
+                // Handle your logic here
+            }
+        }
+    }
+// ================================================================
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -81,12 +110,19 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                     iconName = Icons.Default.Place,
                     buttonLabel = "Find Events Near Me",
                     buttonColor = LightColorScheme.primary,
-                    onClick = { /* Handle button click */ }
+                    onClick = {
+                        Log.d("permission", "RequestLocationlButton Clicked!")
+                        locationPermissionRequest.launch(
+                            arrayOf(
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                            )
+                        )
+                    }
                 )
             }
             Column(
                 modifier = Modifier
-                    .padding(vertical = 30.dp),
             ){
                 IconAndLabelButton(
                     buttonLabel = "Choose your city manually",
