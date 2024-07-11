@@ -23,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -97,7 +96,7 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                     Text(
                         text = "Explore Events\n      near you",
                         style = TextStyle(
-                            fontSize = 20.sp,
+                            fontSize = 30.sp,
                             fontWeight = FontWeight.Bold,
                             color = LightColorScheme.tertiary,
                         ),
