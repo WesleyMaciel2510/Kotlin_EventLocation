@@ -65,6 +65,7 @@ dependencies {
     implementation ("androidx.navigation:navigation-compose")
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.runtime.android)
     // new libs end block ==============
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

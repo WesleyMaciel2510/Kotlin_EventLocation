@@ -40,10 +40,10 @@ import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 @Composable
 fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
     val image: Painter = painterResource(id = R.drawable.mapscreen_header)
-    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
-    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
-// REQUEST LOCATION ===============================================
+
+    // Request Location
     var locationPermission: Boolean by remember { mutableStateOf(false) }
+    Log.d("permission", "locationPermission = ${locationPermission}!")
 
     // Register for permission result
     val locationPermissionRequest = rememberLauncherForActivityResult(
@@ -53,51 +53,109 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
             permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true -> {
                 // Precise location access granted.
                 Log.d("permission", "Precise location access granted!")
+                locationPermission = true
             }
             permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true -> {
                 // Approximate location access granted.
                 Log.d("permission", "Approximate location access granted!")
-                // Handle your logic here
+                locationPermission = true
             }
             else -> {
                 // No location access granted.
                 Log.d("permission", "Location access NOT granted!")
-                // Handle your logic here
+                locationPermission = false
             }
         }
     }
-// ================================================================
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = LightColorScheme.background)
-    ) {
-        Image(
-            painter = image,
-            contentDescription = "Header",
-            modifier = Modifier
-                .fillMaxWidth(),
-            contentScale = ContentScale.Crop
-        )
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = screenHeight / 2)
+    if (!locationPermission) {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .background(color = LightColorScheme.background)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = LightColorScheme.background),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = image,
+                    contentDescription = "Header",
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    contentScale = ContentScale.Crop
+                )
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = LightColorScheme.background),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Explore Events\n      near you",
+                        style = TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = LightColorScheme.tertiary,
+                        ),
+                        modifier = Modifier.padding(vertical = 20.dp)
+                    )
+                    Text(
+                        text = "Easily find events around you.\nUsing the map requires your location permission.",
+                        style = TextStyle(
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = LightColorScheme.tertiary,
+                        ),
+                        modifier = Modifier
+                            .padding(horizontal = 30.dp)
+                    )
+                    Column(
+                        modifier = Modifier
+                            .padding(top = 10.dp),
+                    ) {
+                        IconAndLabelButton(
+                            iconName = Icons.Default.Place,
+                            buttonLabel = "Find Events Near Me",
+                            buttonColor = LightColorScheme.primary,
+                            onClick = {
+                                Log.d("permission", "RequestLocationButton Clicked!")
+                                locationPermissionRequest.launch(
+                                    arrayOf(
+                                        Manifest.permission.ACCESS_FINE_LOCATION,
+                                        Manifest.permission.ACCESS_COARSE_LOCATION
+                                    )
+                                )
+                            }
+                        )
+                    }
+                    Column(
+                        modifier = Modifier
+                    ) {
+                        IconAndLabelButton(
+                            buttonLabel = "Choose your city manually",
+                            buttonColor = LightColorScheme.secondary,
+                            onClick = {
+                                Log.d("permission", "cityButton Clicked!")
+                                locationPermission = true
+                            }
+                        )
+                    }
+                }
+            }
+        }
+    } else {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
                 .background(color = LightColorScheme.background),
-            horizontalAlignment = Alignment.CenterHorizontally
+            contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Explore Events\n      near you",
-                style = TextStyle(
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = LightColorScheme.tertiary,
-                ),
-                modifier = Modifier.padding(vertical = 20.dp)
-            )
-            Text(
-                text = "Easily find events around you.\nUsing the map requires your location permission.",
+                text = "Text Permission Granted",
                 style = TextStyle(
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Normal,
@@ -105,50 +163,6 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                 ),
                 modifier = Modifier.padding(horizontal = 40.dp)
             )
-            Column(
-                modifier = Modifier
-                    .padding(top = 30.dp),
-            ){
-                IconAndLabelButton(
-                    iconName = Icons.Default.Place,
-                    buttonLabel = "Find Events Near Me",
-                    buttonColor = LightColorScheme.primary,
-                    onClick = {
-                        Log.d("permission", "RequestLocationlButton Clicked!")
-                        locationPermissionRequest.launch(
-                            arrayOf(
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION
-                            )
-                        )
-                    }
-                )
-            }
-            Column(
-                modifier = Modifier
-            ){
-                if(!locationPermission){
-                    IconAndLabelButton(
-                        buttonLabel = "Choose your city manually",
-                        buttonColor = LightColorScheme.secondary,
-                        onClick = { Log.d("permission", "cityButton Clicked!")
-                            Log.d("permission", "locationPermission = ${locationPermission}!")
-                            locationPermission = true
-                        }
-                    )
-                } else {
-                    Text(
-                        text = "Conditional Rendering Working.",
-                        style = TextStyle(
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.Normal,
-                            color = LightColorScheme.tertiary,
-                        ),
-                        modifier = Modifier.padding(horizontal = 40.dp)
-                    )
-                }
-
-            }
         }
     }
 }
