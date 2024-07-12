@@ -62,10 +62,11 @@ dependencies {
     // new libs to add =================
     implementation("androidx.compose.material:material:1.6.8")
     implementation(libs.androidx.media3.common)
-    implementation ("androidx.navigation:navigation-compose")
+    implementation (libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.runtime.android)
+    implementation("com.google.accompanist:accompanist-permissions:0.35.1-alpha")
     // new libs end block ==============
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

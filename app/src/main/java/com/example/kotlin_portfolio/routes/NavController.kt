@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.kotlin_portfolio.screens.camera.CameraScreen
 import com.example.kotlin_portfolio.screens.eventItem.EventItemScreen
 import com.example.kotlin_portfolio.screens.home.HomeScreen
 import com.example.kotlin_portfolio.screens.map.MapScreen
@@ -28,6 +29,9 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier) {
         }
         composable("eventItem") {
             EventItemScreen(navController = navController)
+        }
+        composable("camera") {
+            CameraScreen(navController = navController)
         }
 
     }

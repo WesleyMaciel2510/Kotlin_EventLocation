@@ -1,5 +1,6 @@
 package com.example.kotlin_portfolio.screens.profile
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -40,9 +41,17 @@ import com.example.kotlin_portfolio.R
 import com.example.kotlin_portfolio.components.buttons.IconAndLabelButton
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun ProfileScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+    //Camera Permission
+    val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
+
     Box(modifier = modifier) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -79,15 +88,11 @@ fun ProfileScreen(modifier: Modifier = Modifier, navController: NavHostControlle
                 Column(
                     modifier = Modifier.padding(start = 16.dp)
                 ) {
-                    Text(
-                        text = "Wesley Maciel",
-                        style = TextStyle(
+                    Text(text = "Wesley Maciel", style = TextStyle(
                             fontSize = 23.sp,
                             fontWeight = FontWeight.Bold,
                             color = LightColorScheme.outline,
-                        ),
-                        modifier = Modifier.padding(bottom = 4.dp)
-                    )
+                        ), modifier = Modifier.padding(bottom = 4.dp))
                     Text(
                         text = "wesleymaciel2500@gmail.com",
                         style = MaterialTheme.typography.bodyMedium,
@@ -102,6 +107,25 @@ fun ProfileScreen(modifier: Modifier = Modifier, navController: NavHostControlle
                     buttonLabel = "Edit Your Profile",
                     buttonColor = LightColorScheme.primary,
                     onClick = { /*TODO*/ })
+                IconAndLabelButton(
+                    buttonLabel = "Read QRCode",
+                    buttonColor = LightColorScheme.primary,
+                    onClick = {
+                        if (cameraPermissionState.status.isGranted) {
+                            Log.d("camera", "Permission GRANTED: Go to camera screen")
+                            navController.navigate("camera")
+                        } else if (cameraPermissionState.status.shouldShowRationale) {
+                            // Permission has been denied previously, but can be explained
+                            // Optionally, show a rationale for needing the permission
+                            Log.d("camera", "Permission rationale should be shown")
+
+                        } else {
+                            // Permission has not been granted yet, request it
+                            cameraPermissionState.launchPermissionRequest()
+                        }
+                    }
+
+                )
             }
             Column(
                 modifier = Modifier

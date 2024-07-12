@@ -39,7 +39,6 @@ import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 @Composable
 fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
     val image: Painter = painterResource(id = R.drawable.mapscreen_header)
-
     // Request Location
     var locationPermission: Boolean by remember { mutableStateOf(false) }
     Log.d("permission", "locationPermission = ${locationPermission}!")

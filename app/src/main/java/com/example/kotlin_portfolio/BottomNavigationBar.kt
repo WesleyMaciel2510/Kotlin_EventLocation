@@ -68,7 +68,10 @@ fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavHostCon
             icon = Icons.Default.Person,
             label = "Profile",
             iconColor = if (selectedIcon == "Profile") LightColorScheme.primary else LightColorScheme.background,
-            onClick = { selectedIcon = "Profile" }
+            onClick = {
+                selectedIcon = "Profile"
+                navController.navigate("profile")
+            }
         )
     }
 }
