@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Text
@@ -75,8 +77,10 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(color = LightColorScheme.background),
+                    .background(color = LightColorScheme.background)
+                .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
+
             ) {
                 Image(
                     painter = image,
@@ -93,9 +97,9 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Explore Events\n      near you",
+                        text = "Explore events near you",
                         style = TextStyle(
-                            fontSize = 30.sp,
+                            fontSize = 28.sp,
                             fontWeight = FontWeight.Bold,
                             color = LightColorScheme.tertiary,
                         ),
@@ -138,7 +142,6 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                             buttonColor = LightColorScheme.secondary,
                             onClick = {
                                 Log.d("permission", "cityButton Clicked!")
-                                locationPermission = true
                             }
                         )
                     }
@@ -146,22 +149,7 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
             }
         }
     } else {
-        Box(
-            modifier = modifier
-                .fillMaxSize()
-                .background(color = LightColorScheme.background),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "Text Permission Granted",
-                style = TextStyle(
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Normal,
-                    color = LightColorScheme.tertiary,
-                ),
-                modifier = Modifier.padding(horizontal = 40.dp)
-            )
-        }
+        EventsNearMeList(events = EventsNearMeItems)
     }
 }
 
@@ -171,6 +159,5 @@ fun PreviewNewComponent() {
     val navController = rememberNavController()
     Kotlin_PortfolioTheme {
         MapScreen(navController = navController)
-
     }
 }
