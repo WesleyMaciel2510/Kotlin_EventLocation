@@ -117,7 +117,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, navController: NavHostControlle
                     Text(
                         text = "wesleymaciel2500@gmail.com",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = Color.Gray
+                        color = Color.Black
                     )
                 }
             }

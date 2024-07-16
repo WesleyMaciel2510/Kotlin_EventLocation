@@ -76,9 +76,10 @@ dependencies {
     // Zxing
     implementation ("com.google.zxing:core:3.3.3")
     //get latlong
-    implementation ("com.google.android.gms:play-services-location:21.3.0")
     implementation(libs.androidx.compiler)
-    implementation ("com.google.accompanist:accompanist-permissions:0.24.13-rc")
+    implementation ("com.google.android.gms:play-services-location:21.3.0")
+    implementation("com.google.accompanist:accompanist-permissions:0.35.0-alpha")
+    //implementation ("com.google.accompanist:accompanist-permissions:0.24.13-rc")
     // new libs end block ==============
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

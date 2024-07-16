@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -19,6 +20,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kotlin_portfolio.R
@@ -82,14 +84,16 @@ fun FinishedEventsList(
                     fontSize = 23.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
+                    textAlign = TextAlign.Center
                 ),
-                modifier = Modifier.padding(bottom = 4.dp)
+                modifier = Modifier
+                    .padding(bottom = 4.dp)
+                    .align(Alignment.CenterHorizontally),
             )
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(1.dp)
-                    //.background(color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f))
             )
 
             Column {
@@ -115,7 +119,7 @@ fun FinishedEventsItemView(item: FinishedEventsItem) {
             contentDescription = item.title,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp) // Adjust the height as per your design
+                .height(200.dp)
                 .clip(RoundedCornerShape(15.dp))
         )
         Column(
@@ -154,8 +158,7 @@ fun FinishedEventsItemView(item: FinishedEventsItem) {
     }
 }
 
-/*
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun PreviewFinishedEventsList() {
     FinishedEventsList(

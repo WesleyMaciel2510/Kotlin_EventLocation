@@ -3,6 +3,7 @@ package com.example.kotlin_portfolio.screens.map
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,11 +13,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -74,7 +79,8 @@ fun EventsNearMeList(
     modifier: Modifier = Modifier,
     events: List<EventsNearMeItem>,
     latitude: Double?,
-    longitude: Double?
+    longitude: Double?,
+    address: String?
 ) {
     Column(
         modifier = modifier
@@ -94,21 +100,33 @@ fun EventsNearMeList(
                 modifier = Modifier.padding(12.dp)
                     .height(70.dp)
             ) {
+                Row(modifier = Modifier.fillMaxWidth()){
+                    Icon(
+                        imageVector = Icons.Default.LocationOn,
+                        contentDescription = "Location Icon",
+                        modifier = Modifier
+                            .padding(start = 16.dp) // Adjust the padding as needed
+                            .align(Alignment.CenterVertically)
+                    )
+                    Text(
+                        text = "Location Detected",
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black
+                        ),
+                        modifier = Modifier
+                            .padding(top = 8.dp, end = 16.dp)
+                            .fillMaxWidth(),
+                        textAlign = TextAlign.Start
+                    )
+                }
+
                 Text(
-                    text = "Location Detected",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    ),
-                    modifier = Modifier
-                        .padding(top = 8.dp, end = 16.dp)
-                        .fillMaxWidth(),
-                    textAlign = TextAlign.Start
-                )
-                Text(
-                    text = "Latitude: ${latitude ?: "Unknown"}\nLongitude: ${longitude ?: "Unknown"}",
+                    text = "Address: $address",
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(top = 4.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 4.dp),
                     textAlign = TextAlign.Start,
                 )
 

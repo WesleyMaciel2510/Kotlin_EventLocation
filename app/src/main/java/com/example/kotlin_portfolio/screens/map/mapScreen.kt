@@ -2,6 +2,7 @@ package com.example.kotlin_portfolio.screens.map
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -38,10 +39,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_portfolio.R
 import com.example.kotlin_portfolio.components.buttons.IconAndLabelButton
+import com.example.kotlin_portfolio.services.getAddressFromLocation
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @SuppressLint("MissingPermission")
 @Composable
@@ -49,6 +54,7 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
     val image: Painter = painterResource(id = R.drawable.mapscreen_header)
     // Request Location
     var locationPermission by remember { mutableStateOf(false) }
+    var address by remember { mutableStateOf("") }
 
     // get latlong
     val context = LocalContext.current
@@ -66,9 +72,19 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
             location?.let {
                 latitude = it.latitude
                 longitude = it.longitude
-                Log.d("permission", "latitude = $latitude , longitude = $longitude")
+                Log.d("address", "latitude = $latitude , longitude = $longitude")
             }
-        }.addOnFailureListener { e ->
+            fun fetchAddress(context: Context, latitude: Double, longitude: Double) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    val result = getAddressFromLocation(context, latitude, longitude)
+                    address = result ?: "No address found, check your GPS."
+                    Log.d("address", "ADDRESS FOUND = $address")
+                }
+            }
+            if (latitude != null && longitude != null) {
+                fetchAddress(context, latitude!!, longitude!!)
+            }
+            }.addOnFailureListener { e ->
         Log.d("permission", "Failed to get location: ${e.message}")
     }
     }
@@ -195,7 +211,8 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
         EventsNearMeList(
             events = EventsNearMeItems,
             latitude = latitude,
-            longitude = longitude
+            longitude = longitude,
+            address = address
         )
     }
 }
