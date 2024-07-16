@@ -62,7 +62,9 @@ fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavHostCon
             icon = Icons.Filled.AccountBox,
             label = "Wallet",
             iconColor = if (selectedIcon == "Wallet") LightColorScheme.primary else LightColorScheme.background,
-            onClick = { selectedIcon = "Wallet" }
+            onClick = { selectedIcon = "Wallet"
+                navController.navigate("wallet")
+            }
         )
         IconButtonWithLabel(
             icon = Icons.Default.Person,

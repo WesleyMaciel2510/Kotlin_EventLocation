@@ -1,6 +1,7 @@
 package com.example.kotlin_portfolio.screens.map
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -37,13 +40,38 @@ import com.example.kotlin_portfolio.R
 import com.example.kotlin_portfolio.components.buttons.IconAndLabelButton
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
+@SuppressLint("MissingPermission")
 @Composable
 fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
     val image: Painter = painterResource(id = R.drawable.mapscreen_header)
     // Request Location
-    var locationPermission: Boolean by remember { mutableStateOf(false) }
-    Log.d("permission", "locationPermission = ${locationPermission}!")
+    var locationPermission by remember { mutableStateOf(false) }
+
+    // get latlong
+    val context = LocalContext.current
+    val fusedLocationClient = remember { LocationServices.getFusedLocationProviderClient(context) }
+    var latitude by remember { mutableStateOf<Double?>(null) }
+    var longitude by remember { mutableStateOf<Double?>(null) }
+
+    fun getLastKnownLocation(fusedLocationClient: FusedLocationProviderClient) {
+        Log.d("getLastKnownLocation", "@@@ getLastKnownLocation CALLED!")
+        Log.d("getLastKnownLocation", "@@@ fusedLocationClient = $fusedLocationClient")
+
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            Log.d("permission", "location = $location")
+
+            location?.let {
+                latitude = it.latitude
+                longitude = it.longitude
+                Log.d("permission", "latitude = $latitude , longitude = $longitude")
+            }
+        }.addOnFailureListener { e ->
+        Log.d("permission", "Failed to get location: ${e.message}")
+    }
+    }
 
     // Register for permission result
     val locationPermissionRequest = rememberLauncherForActivityResult(
@@ -54,17 +82,29 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                 // Precise location access granted.
                 Log.d("permission", "Precise location access granted!")
                 locationPermission = true
+                getLastKnownLocation(fusedLocationClient)
+
             }
             permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true -> {
                 // Approximate location access granted.
                 Log.d("permission", "Approximate location access granted!")
                 locationPermission = true
+                getLastKnownLocation(fusedLocationClient)
             }
             else -> {
                 // No location access granted.
                 Log.d("permission", "Location access NOT granted!")
                 locationPermission = false
             }
+        }
+    }
+
+
+
+    LaunchedEffect(true) {
+        Log.d("permission", "@@@ locationPermission = $locationPermission")
+        if (locationPermission) {
+            getLastKnownLocation(fusedLocationClient)
         }
     }
 
@@ -78,7 +118,7 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(color = LightColorScheme.background)
-                .verticalScroll(rememberScrollState()),
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
@@ -106,6 +146,7 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                         modifier = Modifier.padding(vertical = 20.dp)
                     )
                     Text(
+                        //text = "lat = $latitude - long = $longitude ",
                         text = "Easily find events around you.\nUsing the map requires your location permission.",
                         style = TextStyle(
                             fontSize = 22.sp,
@@ -149,7 +190,13 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
             }
         }
     } else {
-        EventsNearMeList(events = EventsNearMeItems)
+        /*Text("latitude = $latitude,\n" +
+                "            longitude = $longitude")*/
+        EventsNearMeList(
+            events = EventsNearMeItems,
+            latitude = latitude,
+            longitude = longitude
+        )
     }
 }
 

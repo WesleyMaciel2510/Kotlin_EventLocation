@@ -54,8 +54,28 @@ fun ProfileScreen(modifier: Modifier = Modifier, navController: NavHostControlle
 
     Box(modifier = modifier) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
         ) {
+            Column(
+                modifier = modifier
+                    .background(color = LightColorScheme.outline)
+                    .fillMaxWidth()
+                    .padding(horizontal = 7.dp, vertical = 20.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                ) {
+                    Text(
+                        text = "Profile",
+                        style = TextStyle(
+                            fontSize = 23.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = LightColorScheme.background
+                        ),
+                        modifier = Modifier.padding(start = 15.dp)
+                    )
+                }
+            }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
@@ -63,6 +83,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, navController: NavHostControlle
                 // Left: Circular Image
                 Box(
                     modifier = Modifier
+                        .padding(start = 25.dp, top = 20.dp)
                         .size(80.dp)
                         .clip(CircleShape)
                         .background(Color.White)
@@ -147,7 +168,9 @@ fun ProfileScreen(modifier: Modifier = Modifier, navController: NavHostControlle
                 ) {
                     Icon(Icons.Default.Lock, contentDescription = "Lock Icon")
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Change Password")
+                    Text("Change Password",
+                        color = Color.Black
+                    )
                     Spacer(modifier = Modifier.weight(1f))
                     Icon(Icons.Default.PlayArrow, contentDescription = "Arrow Icon")
                 }
@@ -168,7 +191,9 @@ fun ProfileScreen(modifier: Modifier = Modifier, navController: NavHostControlle
                 ) {
                     Icon(Icons.Default.Notifications, contentDescription = "Notifications Icon")
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Notifications")
+                    Text("Notifications",
+                        color = Color.Black
+                        )
                     Spacer(modifier = Modifier.weight(1f))
                     Icon(Icons.Default.PlayArrow, contentDescription = "Arrow Icon")
                 }

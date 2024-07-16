@@ -1,20 +1,15 @@
-package com.example.kotlin_portfolio.screens.map
+package com.example.kotlin_portfolio.screens.wallet
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,103 +19,65 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kotlin_portfolio.R
 
-data class EventsNearMeItem(
+data class FinishedEventsItem(
     val imageRes: Int,
     val title: String,
     val local: String,
     val eventDate: String
 )
 
-val EventsNearMeItems = listOf(
-    EventsNearMeItem(
-        R.drawable.banner1,
-        "BlockBusters House",
-        "Instituto Inhotim - Brumadinho, MG",
-        "2024-07-10"
+val FinishedEventsItems = listOf(
+    FinishedEventsItem(
+        R.drawable.banner11,
+        "Art Exhibition",
+        "Museum of Modern Art - São Paulo, SP",
+        "20JUN"
     ),
-    EventsNearMeItem(
-        R.drawable.banner2,
-        "Theater",
-        "Museu do Amanhã - Rio de Janeiro",
-        "12JUL"
+    FinishedEventsItem(
+        R.drawable.banner12,
+        "Music Concert",
+        "Allianz Parque - São Paulo, SP",
+        "15APR"
     ),
-    EventsNearMeItem(
-        R.drawable.banner3,
-        "StandUp Comedy",
-        "XV de Novembro,789 - Curitiba, PR",
-        "07JUL-08JUL"
+    FinishedEventsItem(
+        R.drawable.banner13,
+        "Comedy Show",
+        "Teatro Riachuelo - Natal, RN",
+        "02JUL-03JUL"
     ),
-    EventsNearMeItem(
-        R.drawable.banner4,
-        "Online Events",
-        "press to see the website",
-        "14JUL-15JUL"
+    FinishedEventsItem(
+        R.drawable.banner14,
+        "Tech Conference",
+        "Centro de Convenções - Recife, PE",
+        "10JUL-11JUL"
     ),
-    EventsNearMeItem(
-        R.drawable.banner5,
-        "Theater Show",
-        "SESI - Uberaba - Minas Gerais",
-        "14JUL-15JUL"
+    FinishedEventsItem(
+        R.drawable.banner15,
+        "Food Festival",
+        "Parque da Cidade - Brasília, DF",
+        "08JUL-10JUL"
     ),
 )
 
 @Composable
-fun EventsNearMeList(
+fun FinishedEventsList(
     modifier: Modifier = Modifier,
-    events: List<EventsNearMeItem>,
-    latitude: Double?,
-    longitude: Double?
+    events: List<FinishedEventsItem>,
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        // Location Detected Card
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant,
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 20.dp)
-        ) {
-            Column(
-                modifier = Modifier.padding(12.dp)
-                    .height(70.dp)
-            ) {
-                Text(
-                    text = "Location Detected",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    ),
-                    modifier = Modifier
-                        .padding(top = 8.dp, end = 16.dp)
-                        .fillMaxWidth(),
-                    textAlign = TextAlign.Start
-                )
-                Text(
-                    text = "Latitude: ${latitude ?: "Unknown"}\nLongitude: ${longitude ?: "Unknown"}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(top = 4.dp),
-                    textAlign = TextAlign.Start,
-                )
-
-            }
-        }
-
-        // Events Near You Section
         Column(
             modifier = Modifier.padding(start = 20.dp, top = 30.dp)
         ) {
             Text(
-                text = "Events Near You",
+                text = "Finished Events",
                 style = TextStyle(
                     fontSize = 23.sp,
                     fontWeight = FontWeight.Bold,
@@ -132,12 +89,12 @@ fun EventsNearMeList(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(1.dp)
-                    .background(color = Color.LightGray)
+                    //.background(color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f))
             )
 
             Column {
                 events.forEach { event ->
-                    EventNearMeItemView(item = event)
+                    FinishedEventsItemView(item = event)
                 }
             }
         }
@@ -145,7 +102,7 @@ fun EventsNearMeList(
 }
 
 @Composable
-fun EventNearMeItemView(item: EventsNearMeItem) {
+fun FinishedEventsItemView(item: FinishedEventsItem) {
     Column(
         modifier = Modifier
             .clip(RoundedCornerShape(15.dp))
@@ -157,8 +114,9 @@ fun EventNearMeItemView(item: EventsNearMeItem) {
             painter = image,
             contentDescription = item.title,
             modifier = Modifier
-                .width(300.dp)
-                .clip(RoundedCornerShape(10.dp))
+                .fillMaxWidth()
+                .height(200.dp) // Adjust the height as per your design
+                .clip(RoundedCornerShape(15.dp))
         )
         Column(
             modifier = Modifier
@@ -171,22 +129,22 @@ fun EventNearMeItemView(item: EventsNearMeItem) {
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
-                ),
+                    ),
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             Text(
                 text = item.local,
                 style = TextStyle(
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
                     color = Color.Black,
-                ),
+                    ),
                 modifier = Modifier.padding(bottom = 4.dp)
             )
             Text(
                 text = "Date: ${item.eventDate}",
                 style = TextStyle(
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFFC96908),
                 ),
@@ -196,12 +154,13 @@ fun EventNearMeItemView(item: EventsNearMeItem) {
     }
 }
 
-/*@Preview(showBackground = true)
+/*
+@Preview(showBackground = true)
 @Composable
-fun PreviewEventsNearMeList() {
-    Kotlin_PortfolioTheme {
-        val latitude = 37.7749
-        val longitude = -122.4194
-        EventsNearMeList(events = EventsNearMeItems, latitude = latitude, longitude = longitude)
-    }
+fun PreviewFinishedEventsList() {
+    FinishedEventsList(
+        events = FinishedEventsItems,
+        latitude = null,
+        longitude = null
+    )
 }*/
