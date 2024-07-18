@@ -1,12 +1,16 @@
 package com.example.kotlin_portfolio.screens.map
 
+import android.annotation.SuppressLint
 import android.util.Log
+import com.example.kotlin_portfolio.utils.EventsNearMeItem
+import com.example.kotlin_portfolio.utils.EventsNearMeItems
 import kotlin.math.asin
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
 
+@SuppressLint("DefaultLocale")
 fun findNearestEvents(userLatitude: Double?, userLongitude: Double?): List<EventsNearMeItem> {
     Log.d("Location", "findNearestEvents called!")
 

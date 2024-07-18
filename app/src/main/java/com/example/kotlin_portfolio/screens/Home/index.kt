@@ -24,11 +24,13 @@ import com.example.kotlin_portfolio.components.lazyRows.HightLighLazyRow
 import com.example.kotlin_portfolio.components.lazyRows.LastEventLazyRow
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
+import com.example.kotlin_portfolio.utils.generateRandomRangeWithInterval
 
 @Composable
 fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier) {
 var searchText by remember { mutableStateOf(TextFieldValue("")) }
 
+    val (start, end) = generateRandomRangeWithInterval(1, 30, 5,10)
 
     Column(
         modifier = modifier
@@ -57,8 +59,8 @@ var searchText by remember { mutableStateOf(TextFieldValue("")) }
             HightLighLazyRow()
             ColumnEvents(
                 title = "Upcoming Events",
-                start = 23,
-                end = 30
+                start = start,
+                end = end
             )
         }
     }

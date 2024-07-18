@@ -42,6 +42,8 @@ import com.example.kotlin_portfolio.components.buttons.IconAndLabelButton
 import com.example.kotlin_portfolio.services.getAddressFromLocation
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
+import com.example.kotlin_portfolio.utils.EventsNearMeItem
+import com.example.kotlin_portfolio.utils.EventsNearMeItems
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
