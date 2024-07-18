@@ -131,7 +131,6 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
     // Filter the nearest events before showing on the screen
     if (latitude != null && longitude != null) {
         filteredEvents = findNearestEvents(latitude, longitude)
-        Log.d("Location", "############### FILTROOOOOUUU ########")
         Log.d("Location", "### filteredEvents = $filteredEvents")
 
     } else {
@@ -175,26 +174,25 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                     Text(
                         text = "Explore events near you",
                         style = TextStyle(
-                            fontSize = 28.sp,
+                            fontSize = 25.sp,
                             fontWeight = FontWeight.Bold,
                             color = LightColorScheme.tertiary,
                         ),
-                        modifier = Modifier.padding(vertical = 20.dp)
+                        modifier = Modifier.padding(vertical = 12.dp)
                     )
                     Text(
-                        //text = "lat = $latitude - long = $longitude ",
                         text = "Easily find events around you.\nUsing the map requires your location permission.",
                         style = TextStyle(
-                            fontSize = 22.sp,
+                            fontSize = 20.sp,
                             fontWeight = FontWeight.Normal,
                             color = LightColorScheme.tertiary,
                         ),
                         modifier = Modifier
-                            .padding(horizontal = 30.dp)
+                            .padding(horizontal = 40.dp)
                     )
                     Column(
                         modifier = Modifier
-                            .padding(top = 10.dp),
+                            .padding(top = 5.dp, bottom = 5.dp),
                     ) {
                         IconAndLabelButton(
                             iconName = Icons.Default.Place,

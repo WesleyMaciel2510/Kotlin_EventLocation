@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
@@ -39,7 +40,8 @@ fun BottomNavigationBar(modifier: Modifier = Modifier, navController: NavHostCon
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = LightColorScheme.outline),
+            .background(color = LightColorScheme.outline)
+        .navigationBarsPadding(),
         horizontalArrangement = Arrangement.Center
     ) {
         IconButtonWithLabel(

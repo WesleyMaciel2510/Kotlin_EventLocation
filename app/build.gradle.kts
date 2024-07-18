@@ -60,7 +60,12 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     // new libs to add =================
+    // handle system inserts like back, home, options
+    implementation ("androidx.core:core-ktx:1.13.1")
+    implementation ("androidx.compose.foundation:foundation:1.4.0")
+    implementation ("androidx.compose.ui:ui:1.4.0")
     implementation("androidx.compose.material:material:1.6.8")
+    //end system inserts
     implementation(libs.androidx.media3.common)
     implementation (libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.runtime.ktx)

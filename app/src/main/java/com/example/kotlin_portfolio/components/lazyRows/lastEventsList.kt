@@ -79,12 +79,12 @@ fun LastEventLazyRow(modifier: Modifier = Modifier) {
         Text(
             text = "Most Visited Events in the Last 24h !",
             style = TextStyle(
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = LightColorScheme.outline,
             ),
             modifier = Modifier
-                .padding(vertical = 10.dp, horizontal = 5.dp)
+                .padding(vertical = 10.dp, horizontal = 10.dp)
                 .align(Alignment.Start)
         )
         Spacer(
@@ -111,7 +111,6 @@ fun LastEventItemView(item: LastEventItem) {
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
             .clip(RoundedCornerShape(15.dp))
-            .padding(end = 10.dp)
     ) {
         val image: Painter = painterResource(id = item.imageRes)
         Image(
