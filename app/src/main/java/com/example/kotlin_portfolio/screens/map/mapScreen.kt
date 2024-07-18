@@ -122,6 +122,26 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
         }
     }
 
+    // Filter Near Events ==============================================================
+    // Initialize filteredEvents as an empty list
+    var filteredEvents: List<EventsNearMeItem> = emptyList()
+
+    // Filter the nearest events before showing on the screen
+    if (latitude != null && longitude != null) {
+        filteredEvents = findNearestEvents(latitude, longitude)
+        Log.d("Location", "############### FILTROOOOOUUU ########")
+        Log.d("Location", "### filteredEvents = $filteredEvents")
+
+    } else {
+        // User needs to enable GPS,
+        // Display all events and create a message to the user to enable GPS
+        Log.d("Location", "Location Not Found, \nUnable to Filter Near Events ")
+    }
+    // Determine which list to pass to EventsNearMeList
+    val eventsToShow = filteredEvents.ifEmpty { EventsNearMeItems }
+
+    //======================================================
+
     if (!locationPermission) {
         Box(
             modifier = modifier
@@ -207,7 +227,7 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
         /*Text("latitude = $latitude,\n" +
                 "            longitude = $longitude")*/
         EventsNearMeList(
-            events = EventsNearMeItems,
+            events = eventsToShow,
             context = context,
             latitude = latitude,
             longitude = longitude,
