@@ -4,7 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
@@ -90,6 +92,13 @@ fun HightLighLazyRow(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .padding(vertical = 10.dp, horizontal = 5.dp)
                 .align(Alignment.Start)
+        )
+        Spacer(
+            modifier = Modifier
+                .width(330.dp)
+                .height(1.dp)
+                .background(color = Color.LightGray)
+                .padding(end = 20.dp,)
         )
         LazyRow(
             modifier = Modifier.padding(vertical = 8.dp),

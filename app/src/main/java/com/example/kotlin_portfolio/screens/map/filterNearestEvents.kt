@@ -29,12 +29,15 @@ fun findNearestEvents(userLatitude: Double?, userLongitude: Double?): List<Event
         .map { event ->
             event.geolocation.let { geo ->
                 val distance = haversine(userLatitude, userLongitude, geo.latitude, geo.longitude)
-                Pair(event, distance)
+                //Pair(event, distance)
+                event.copy(distance = String.format("%.2f km", distance))
             }
         }
-        .sortedBy { it.second }
         .take(5)
-        .map { it.first }
+        .sortedBy { it.distance }
+        .take(5)
+        /*.sortedBy { it.second }
+        .map { it.first }*/
 
     Log.d("Location", "@ filteredEvents = $filteredEvents")
 

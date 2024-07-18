@@ -1,6 +1,5 @@
 package com.example.kotlin_portfolio.screens.home
 
-import com.example.kotlin_portfolio.components.headers.SearchHeaderBar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +17,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.kotlin_portfolio.components.ColumnEvents
+import com.example.kotlin_portfolio.components.headers.SearchHeaderBar
 import com.example.kotlin_portfolio.components.lazyRows.EventTypeLazyRow
 import com.example.kotlin_portfolio.components.lazyRows.HightLighLazyRow
 import com.example.kotlin_portfolio.components.lazyRows.LastEventLazyRow
@@ -54,6 +55,11 @@ var searchText by remember { mutableStateOf(TextFieldValue("")) }
             EventTypeLazyRow()
             LastEventLazyRow()
             HightLighLazyRow()
+            ColumnEvents(
+                title = "Upcoming Events",
+                start = 23,
+                end = 30
+            )
         }
     }
 }
