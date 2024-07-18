@@ -115,8 +115,6 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
         }
     }
 
-
-
     LaunchedEffect(true) {
         Log.d("permission", "@@@ locationPermission = $locationPermission")
         if (locationPermission) {
@@ -210,6 +208,7 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                 "            longitude = $longitude")*/
         EventsNearMeList(
             events = EventsNearMeItems,
+            context = context,
             latitude = latitude,
             longitude = longitude,
             address = address

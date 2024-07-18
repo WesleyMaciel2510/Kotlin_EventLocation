@@ -31,7 +31,7 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier) {
             EventItemScreen(navController = navController)
         }
         composable("camera") {
-            CameraScreen(/*navController = navController*/)
+            CameraScreen(navController = navController)
         }
 
     }

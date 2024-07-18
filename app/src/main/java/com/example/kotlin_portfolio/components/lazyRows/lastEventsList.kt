@@ -131,7 +131,7 @@ fun LastEventItemView(item: LastEventItem) {
             Text(
                 text = item.local,
                 style = TextStyle(
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
                     color = Color.Black,
                 ),

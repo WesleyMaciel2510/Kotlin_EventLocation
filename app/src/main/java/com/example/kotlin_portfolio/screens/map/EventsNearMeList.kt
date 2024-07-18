@@ -1,5 +1,6 @@
 package com.example.kotlin_portfolio.screens.map
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -26,13 +27,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kotlin_portfolio.R
+import com.example.kotlin_portfolio.components.buttons.IconAndLabelButton
+import com.example.kotlin_portfolio.services.openGoogleMaps
+import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 
 data class EventsNearMeItem(
     val imageRes: Int,
@@ -78,6 +84,7 @@ val EventsNearMeItems = listOf(
 fun EventsNearMeList(
     modifier: Modifier = Modifier,
     events: List<EventsNearMeItem>,
+    context: Context?,
     latitude: Double?,
     longitude: Double?,
     address: String?
@@ -90,24 +97,20 @@ fun EventsNearMeList(
         // Location Detected Card
         Card(
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                containerColor = MaterialTheme.colorScheme.primary,
             ),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 20.dp)
         ) {
             Column(
-                modifier = Modifier.padding(12.dp)
-                    .height(70.dp)
+                modifier = Modifier
+                    .padding(12.dp)
+                    .height(100.dp)
             ) {
-                Row(modifier = Modifier.fillMaxWidth()){
-                    Icon(
-                        imageVector = Icons.Default.LocationOn,
-                        contentDescription = "Location Icon",
-                        modifier = Modifier
-                            .padding(start = 16.dp) // Adjust the padding as needed
-                            .align(Alignment.CenterVertically)
-                    )
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                ){
                     Text(
                         text = "Location Detected",
                         style = MaterialTheme.typography.bodyLarge.copy(
@@ -119,6 +122,13 @@ fun EventsNearMeList(
                             .fillMaxWidth(),
                         textAlign = TextAlign.Start
                     )
+                    Icon(
+                        imageVector = Icons.Default.LocationOn,
+                        contentDescription = "Location Icon",
+                        modifier = Modifier
+                            .padding(start = 10.dp, end = 5.dp)
+                            .align(Alignment.CenterVertically)
+                    )
                 }
 
                 Text(
@@ -126,12 +136,21 @@ fun EventsNearMeList(
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 4.dp),
+                        .padding(top = 10.dp),
                     textAlign = TextAlign.Start,
                 )
 
             }
         }
+        IconAndLabelButton(buttonLabel = "OpenMaps",
+            buttonColor = Color.Black,
+            onClick = {
+                if (context != null) {
+                    openGoogleMaps(context, latitude.toString(), longitude.toString(),
+                        address.toString()
+                    )
+                }
+            })
 
         // Events Near You Section
         Column(
@@ -144,13 +163,14 @@ fun EventsNearMeList(
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
                 ),
-                modifier = Modifier.padding(bottom = 4.dp)
+                modifier = Modifier.padding(start = 20.dp, bottom = 4.dp)
             )
             Spacer(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .width(330.dp)
                     .height(1.dp)
                     .background(color = Color.LightGray)
+                    .padding(end = 20.dp)
             )
 
             Column {
@@ -195,7 +215,7 @@ fun EventNearMeItemView(item: EventsNearMeItem) {
             Text(
                 text = item.local,
                 style = TextStyle(
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
                     color = Color.Black,
                 ),
@@ -214,12 +234,15 @@ fun EventNearMeItemView(item: EventsNearMeItem) {
     }
 }
 
-/*@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun PreviewEventsNearMeList() {
     Kotlin_PortfolioTheme {
-        val latitude = 37.7749
-        val longitude = -122.4194
-        EventsNearMeList(events = EventsNearMeItems, latitude = latitude, longitude = longitude)
+        val context = LocalContext.current
+        val latitude =  -19.74833
+        val longitude = -47.931941
+        val address = "Ricardo Alberto dos Santos, 72, Alfredo Freire 3 - Uberaba MG"
+        EventsNearMeList(context = context , events = EventsNearMeItems, latitude = latitude ,
+            longitude = longitude, address = address)
     }
-}*/
+}

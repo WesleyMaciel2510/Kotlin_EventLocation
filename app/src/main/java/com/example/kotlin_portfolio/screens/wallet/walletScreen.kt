@@ -13,14 +13,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_portfolio.components.tabs.TabComponent
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
+import com.example.kotlin_portfolio.views.CodeInfoViewModel
 
 @Composable
 fun WalletScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+    val viewModel: CodeInfoViewModel = viewModel()
+    // Accessing codeInfo value
+    val codeInfo = viewModel.codeInfo.value
     Column(modifier = modifier) {
         Row(
             modifier = Modifier
@@ -42,6 +47,13 @@ fun WalletScreen(modifier: Modifier = Modifier, navController: NavHostController
             TabComponent(
                 contentActive = {
                     ContentActive()
+                    /*IconAndLabelButton(
+                        buttonLabel = "ShareData",
+                        buttonColor = LightColorScheme.primary,
+                        onClick = {
+                            viewModel.updateCodeInfo("1234567890ABCD")
+                        })
+                    Text(text= "Updated Info = $codeInfo")*/
                 },
                 contentClosed = {
                     ContentClosed()

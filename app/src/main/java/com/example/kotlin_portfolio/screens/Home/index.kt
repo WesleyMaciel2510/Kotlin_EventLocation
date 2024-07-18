@@ -1,9 +1,6 @@
 package com.example.kotlin_portfolio.screens.home
 
-import SearchHeaderBar
-import android.util.Log
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import com.example.kotlin_portfolio.components.headers.SearchHeaderBar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

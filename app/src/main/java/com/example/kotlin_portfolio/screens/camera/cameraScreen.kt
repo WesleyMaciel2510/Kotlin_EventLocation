@@ -26,10 +26,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import com.example.kotlin_portfolio.views.CodeInfoViewModel
 
 @Composable
-fun CameraScreen(modifier: Modifier = Modifier, /*navController: NavHostController*/) {
-    val openAlertDialog = remember { mutableStateOf(false) }
+fun CameraScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+    val viewModel: CodeInfoViewModel = viewModel()
 
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -65,9 +68,12 @@ fun CameraScreen(modifier: Modifier = Modifier, /*navController: NavHostControll
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+
         if (hasCamPermission) {
             if (hasReadCode) {
                 Log.d("qrcode","CODE ================ $code")
+                navController.navigate("profile")
+                viewModel.updateCodeInfo(code)
                 /*LoadWebUrl(code)
                 BackHandler {
                     restartApp(context)
