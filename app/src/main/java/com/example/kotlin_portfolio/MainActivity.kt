@@ -5,21 +5,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.navigation.compose.rememberNavController
-import com.example.kotlin_portfolio.routes.AppNavigation
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
-import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -46,26 +39,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun App(modifier: Modifier = Modifier) {
-    val navController = rememberNavController()
-    Scaffold(
-        // add here what is fixed
-        bottomBar = {
-            BottomNavigationBar(navController = navController)
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .background(color = LightColorScheme.background)
-                .padding(bottom = 10.dp)
-        ) {
-            AppNavigation(navController = navController, modifier = Modifier.weight(1f))
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable

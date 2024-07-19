@@ -231,15 +231,17 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
             SelectCityManually()
         } else {*/
             EventsNearMeList(
+                navController = navController,
                 events = eventsToShow,
                 context = context,
                 latitude = latitude,
                 longitude = longitude,
-                address = address
+                address = address,
             )
         //}
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

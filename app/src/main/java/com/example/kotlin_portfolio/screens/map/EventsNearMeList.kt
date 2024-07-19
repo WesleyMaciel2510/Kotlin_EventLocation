@@ -158,8 +158,7 @@ fun EventsNearMeList(
                         isSelected = itemPressed == index,
                         onClick = {
                             Log.d("Item", "@ GO TO EVENT DETAILS")
-                            //navController.currentBackStackEntry?.arguments?.putParcelable("event", event)
-                            //navController.navigate("eventItem")
+                            navController.navigate("eventItem/$event" )
                         },
 
                         onLongPress = {

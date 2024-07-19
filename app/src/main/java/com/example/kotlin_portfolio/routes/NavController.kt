@@ -19,7 +19,11 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier) {
             HomeScreen(navController = navController)
         }
         composable("map") {
-            MapScreen(navController = navController)
+            MapScreen(navController = navController, modifier = Modifier)
+        }
+        composable("eventItem/{eventInfo}") {
+            val eventInfo = it.arguments?.getString("eventInfo")?: "No Data Available"
+            EventItemScreen(navController = navController, eventInfo = eventInfo)
         }
         composable("profile") {
             ProfileScreen(navController = navController)
@@ -27,9 +31,7 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier) {
         composable("wallet") {
             WalletScreen(navController = navController)
         }
-        composable("eventItem") {
-            EventItemScreen(navController = navController)
-        }
+
         composable("camera") {
             CameraScreen(navController = navController)
         }

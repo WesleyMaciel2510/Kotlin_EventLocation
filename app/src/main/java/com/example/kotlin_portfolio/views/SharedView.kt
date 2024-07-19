@@ -11,3 +11,12 @@ class CodeInfoViewModel : ViewModel() {
         _codeInfo.value = newCodeInfo
     }
 }
+
+class ItemSelectedViewModel : ViewModel() {
+    private val _itemSelected = mutableStateOf("")
+    val ItemSelected = _itemSelected
+
+    fun updateCodeInfo(newItemSelected: String) {
+        _itemSelected.value = newItemSelected
+    }
+}

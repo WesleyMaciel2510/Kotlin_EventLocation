@@ -10,9 +10,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 
 @Composable
-fun EventItemScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+fun EventItemScreen(modifier: Modifier = Modifier, navController: NavHostController, eventInfo: String) {
     Column(modifier = modifier) {
         Text("EventItemScreen")
+        Text("valor de eventInfo recebido = $eventInfo")
+
     }
 }
 
@@ -21,6 +23,7 @@ fun EventItemScreen(modifier: Modifier = Modifier, navController: NavHostControl
 fun PreviewEventItemScreen() {
     val navController = rememberNavController()
     Kotlin_PortfolioTheme {
-        EventItemScreen(navController = navController)
+        EventItemScreen(navController = navController, eventInfo = "")
     }
+
 }
