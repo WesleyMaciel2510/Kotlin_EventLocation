@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    // padding data between screens and components
+    // passing data between screens and components
+    kotlin("plugin.serialization") version "2.0.0"
 }
 
 android {
@@ -10,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.kotlin_portfolio"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -88,6 +89,9 @@ dependencies {
     implementation ("com.google.android.gms:play-services-location:21.3.0")
     // passing data through screens and components
     implementation (libs.gson) //remember to add the plugin too
+    //serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1")
+    implementation(libs.androidx.compose.material)
 
     // new libs end block ==============
     testImplementation(libs.junit)

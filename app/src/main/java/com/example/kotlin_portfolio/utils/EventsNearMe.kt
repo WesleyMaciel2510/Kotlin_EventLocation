@@ -1,8 +1,10 @@
 package com.example.kotlin_portfolio.utils
 
 import com.example.kotlin_portfolio.R
+import kotlinx.serialization.Serializable
 
 // Types ===================================
+@Serializable
 data class EventsNearMeItem(
     val imageRes: Int,
     val title: String,
@@ -12,6 +14,7 @@ data class EventsNearMeItem(
     val distance: String?
 )
 
+@Serializable
 data class Geolocation(
     val latitude: Double,
     val longitude: Double

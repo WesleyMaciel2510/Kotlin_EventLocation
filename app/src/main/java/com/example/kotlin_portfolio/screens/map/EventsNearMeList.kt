@@ -54,6 +54,7 @@ import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
 import com.example.kotlin_portfolio.utils.EventsNearMeItem
 import com.example.kotlin_portfolio.utils.EventsNearMeItems
+import com.example.kotlin_portfolio.utils.serializeEvent
 
 @Composable
 fun EventsNearMeList(
@@ -157,8 +158,11 @@ fun EventsNearMeList(
                         item = event,
                         isSelected = itemPressed == index,
                         onClick = {
+                            val eventJson = serializeEvent(event)
+
                             Log.d("Item", "@ GO TO EVENT DETAILS")
-                            navController.navigate("eventItem/$event" )
+                            Log.d("Item", "@ ITEM PRESSED = $event")
+                            navController.navigate("eventItem/$eventJson" )
                         },
 
                         onLongPress = {
@@ -176,68 +180,68 @@ fun EventsNearMeList(
 
 @Composable
 fun EventNearMeItemView(item: EventsNearMeItem,isSelected: Boolean, onClick: () -> Unit, onLongPress: () -> Unit) {
-        Column(
-            modifier = Modifier
-                .clip(RoundedCornerShape(15.dp))
-                .padding(vertical = 20.dp, horizontal = 20.dp)
-                .fillMaxWidth()
-                .pointerInput(Unit) {
-                    detectTapGestures(
-                        onTap = { onClick() },
-                        onLongPress = { onLongPress() }
-                    )
-                }
-        ) {
-            val image: Painter = painterResource(id = item.imageRes)
-            Image(
-                painter = image,
-                contentDescription = item.title,
-                modifier = Modifier
-                    .width(300.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .border(
-                        width = 5.dp,
-                        color = if (isSelected) LightColorScheme.secondary else Color.Transparent,
-                        shape = RoundedCornerShape(10.dp)
-                    )
-            )
-            Column(
-                modifier = Modifier
-                    .padding(top = 10.dp, start = 1.dp)
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    text = "${item.title} \nDistance: ${item.distance}",
-                    style = TextStyle(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black,
-                    ),
-                    modifier = Modifier
-                        .padding(bottom = 8.dp)
-                        .widthIn(max = 300.dp)
-                )
-                Text(
-                    text = item.local,
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Color.Black,
-                    ),
-                    modifier = Modifier.padding(bottom = 4.dp)
-                )
-                Text(
-                    text = "Date: ${item.eventDate}",
-                    style = TextStyle(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFFC96908),
-                    ),
-                    modifier = Modifier
+    Column(
+        modifier = Modifier
+            .clip(RoundedCornerShape(15.dp))
+            .padding(vertical = 20.dp, horizontal = 20.dp)
+            .fillMaxWidth()
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onTap = { onClick() },
+                    onLongPress = { onLongPress() }
                 )
             }
+    ) {
+        val image: Painter = painterResource(id = item.imageRes.toInt())
+        Image(
+            painter = image,
+            contentDescription = item.title,
+            modifier = Modifier
+                .width(300.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .border(
+                    width = 5.dp,
+                    color = if (isSelected) LightColorScheme.secondary else Color.Transparent,
+                    shape = RoundedCornerShape(10.dp)
+                )
+        )
+        Column(
+            modifier = Modifier
+                .padding(top = 10.dp, start = 1.dp)
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = "${item.title} \nDistance: ${item.distance}",
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black,
+                ),
+                modifier = Modifier
+                    .padding(bottom = 8.dp)
+                    .widthIn(max = 300.dp)
+            )
+            Text(
+                text = item.local,
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.Black,
+                ),
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            Text(
+                text = "Date: ${item.eventDate}",
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFFC96908),
+                ),
+                modifier = Modifier
+            )
         }
     }
+}
 
 @Preview(showBackground = true)
 @Composable
