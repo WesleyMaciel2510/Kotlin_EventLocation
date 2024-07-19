@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -37,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -45,6 +46,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_portfolio.components.buttons.IconAndLabelButton
 import com.example.kotlin_portfolio.services.openGoogleMaps
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
@@ -54,6 +57,7 @@ import com.example.kotlin_portfolio.utils.EventsNearMeItems
 
 @Composable
 fun EventsNearMeList(
+    navController: NavHostController,
     modifier: Modifier = Modifier,
     events: List<EventsNearMeItem>,
     context: Context?,
@@ -153,6 +157,12 @@ fun EventsNearMeList(
                         item = event,
                         isSelected = itemPressed == index,
                         onClick = {
+                            Log.d("Item", "@ GO TO EVENT DETAILS")
+                            //navController.currentBackStackEntry?.arguments?.putParcelable("event", event)
+                            //navController.navigate("eventItem")
+                        },
+
+                        onLongPress = {
                             itemPressed = index
                             locationPressed = event.local
                             Log.d("Item", "@ ITEM PRESSED = $event")
@@ -166,13 +176,18 @@ fun EventsNearMeList(
 }
 
 @Composable
-fun EventNearMeItemView(item: EventsNearMeItem,isSelected: Boolean, onClick: () -> Unit) {
+fun EventNearMeItemView(item: EventsNearMeItem,isSelected: Boolean, onClick: () -> Unit, onLongPress: () -> Unit) {
         Column(
             modifier = Modifier
                 .clip(RoundedCornerShape(15.dp))
                 .padding(vertical = 20.dp, horizontal = 20.dp)
                 .fillMaxWidth()
-                .clickable { onClick() }
+                .pointerInput(Unit) {
+                    detectTapGestures(
+                        onTap = { onClick() },
+                        onLongPress = { onLongPress() }
+                    )
+                }
         ) {
             val image: Painter = painterResource(id = item.imageRes)
             Image(
@@ -229,11 +244,13 @@ fun EventNearMeItemView(item: EventsNearMeItem,isSelected: Boolean, onClick: () 
 @Composable
 fun PreviewEventsNearMeList() {
     Kotlin_PortfolioTheme {
+        val navController = rememberNavController()
+
         val context = LocalContext.current
         val latitude =  -19.74833
         val longitude = -47.931941
         val address = "Ricardo Alberto dos Santos, 72, Alfredo Freire 3 - Uberaba MG"
         EventsNearMeList(context = context , events = EventsNearMeItems, latitude = latitude ,
-            longitude = longitude, address = address)
+            longitude = longitude, address = address, navController = navController)
     }
 }

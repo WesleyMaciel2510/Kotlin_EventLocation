@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    // padding data between screens and components
 }
 
 android {
@@ -85,6 +86,9 @@ dependencies {
     implementation ("com.google.android.gms:play-services-location:21.3.0")
     implementation("com.google.accompanist:accompanist-permissions:0.35.0-alpha")
     implementation ("com.google.android.gms:play-services-location:21.3.0")
+    // passing data through screens and components
+    implementation (libs.gson) //remember to add the plugin too
+
     // new libs end block ==============
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

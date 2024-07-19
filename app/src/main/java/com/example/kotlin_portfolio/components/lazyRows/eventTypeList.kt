@@ -62,10 +62,10 @@ fun EventTypeLazyRow(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold,
                 color = LightColorScheme.outline,
             ),
-            modifier = Modifier.padding(vertical = 20.dp, horizontal = 15.dp)
+            modifier = Modifier.padding(vertical = 20.dp, horizontal = 25.dp)
         )
         LazyRow(
-            modifier = Modifier.padding(vertical = 8.dp),
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 10.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(EventTypeItems.size) { index ->
