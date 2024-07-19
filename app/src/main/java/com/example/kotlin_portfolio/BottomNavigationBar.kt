@@ -94,7 +94,7 @@ fun IconButtonWithLabel(
     ) {
         IconButton(
             onClick = onClick,
-            modifier = Modifier.height(50.dp),
+            modifier = Modifier.height(40.dp),
             content = {
                 Icon(
                     imageVector = icon,
@@ -107,7 +107,7 @@ fun IconButtonWithLabel(
             text = label,
             color = Color.White,
             style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(vertical = 2.dp)
+            modifier = Modifier.padding(bottom = 2.dp)
         )
     }
 }

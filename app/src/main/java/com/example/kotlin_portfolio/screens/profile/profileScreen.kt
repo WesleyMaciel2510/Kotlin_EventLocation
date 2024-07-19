@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -66,12 +65,12 @@ fun ProfileScreen(
         ) {
             Column(
                 modifier = modifier
-                    .background(color = LightColorScheme.outline)
-                    .fillMaxWidth()
-                    .padding(horizontal = 7.dp, vertical = 20.dp)
             ) {
                 Row(
                     modifier = Modifier
+                        .background(color = LightColorScheme.outline)
+                        .fillMaxWidth()
+                        .padding(horizontal = 7.dp, vertical = 20.dp)
                 ) {
                     Text(
                         text = "Profile",
@@ -130,7 +129,7 @@ fun ProfileScreen(
                 }
             }
             Column(
-                modifier = Modifier.padding(vertical = 30.dp)
+                modifier = Modifier.padding(top = 30.dp)
             ) {
                 IconAndLabelButton(
                     buttonLabel = "Edit Your Profile",
@@ -169,8 +168,8 @@ fun ProfileScreen(
             }
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
+                    //.fillMaxSize()
+                    .padding(horizontal = 15.dp)
             ) {
                 Text(
                     text = "My Account",
@@ -179,11 +178,11 @@ fun ProfileScreen(
                         fontWeight = FontWeight.Bold,
                         color = LightColorScheme.outline,
                     ),
-                    modifier = Modifier.padding(bottom = 30.dp)
+                    modifier = Modifier.padding(bottom = 30.dp, start = 16.dp)
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(vertical = 8.dp)
+                    modifier = Modifier.padding(vertical = 10.dp, horizontal = 16.dp)
                 ) {
                     Icon(Icons.Default.Lock, contentDescription = "Lock Icon")
                     Spacer(modifier = Modifier.width(8.dp))
@@ -206,7 +205,7 @@ fun ProfileScreen(
                 // Second Row: Notifications
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(vertical = 8.dp)
+                    modifier = Modifier.padding(vertical = 10.dp, horizontal = 16.dp)
                 ) {
                     Icon(Icons.Default.Notifications, contentDescription = "Notifications Icon")
                     Spacer(modifier = Modifier.width(8.dp))
@@ -228,7 +227,7 @@ fun ProfileScreen(
 
                 // Logout Button below Notifications
                 Column(
-                    modifier = Modifier.padding(vertical = 20.dp)
+                    modifier = Modifier.padding(vertical = 10.dp)
                 ) {
                     IconAndLabelButton(
                         buttonLabel = "Logout Your Account",

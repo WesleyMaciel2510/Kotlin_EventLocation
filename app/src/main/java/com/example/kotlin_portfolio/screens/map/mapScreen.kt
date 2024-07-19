@@ -57,6 +57,7 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
     // Request Location
     var locationPermission by remember { mutableStateOf(false) }
     var address by remember { mutableStateOf("") }
+    var selectCityManually by remember { mutableStateOf(false)}
 
     // get latlong
     val context = LocalContext.current
@@ -192,7 +193,7 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                     )
                     Column(
                         modifier = Modifier
-                            .padding(top = 5.dp, bottom = 5.dp),
+                            .padding(top = 5.dp),
                     ) {
                         IconAndLabelButton(
                             iconName = Icons.Default.Place,
@@ -217,22 +218,26 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                             buttonColor = LightColorScheme.secondary,
                             onClick = {
                                 Log.d("permission", "cityButton Clicked!")
+                                selectCityManually = true
                             }
                         )
                     }
                 }
             }
         }
+
     } else {
-        /*Text("latitude = $latitude,\n" +
-                "            longitude = $longitude")*/
-        EventsNearMeList(
-            events = eventsToShow,
-            context = context,
-            latitude = latitude,
-            longitude = longitude,
-            address = address
-        )
+        /*if (selectCityManually) {
+            SelectCityManually()
+        } else {*/
+            EventsNearMeList(
+                events = eventsToShow,
+                context = context,
+                latitude = latitude,
+                longitude = longitude,
+                address = address
+            )
+        //}
     }
 }
 
