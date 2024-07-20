@@ -23,7 +23,7 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier) {
         }
         composable("eventItem/{eventInfo}") {
             val eventInfo = it.arguments?.getString("eventInfo")?: "No Data Available"
-            EventItemScreen(navController = navController, eventInfo = eventInfo)
+            EventItemScreen(navController = navController, dataJson = eventInfo)
         }
         composable("profile") {
             ProfileScreen(navController = navController)

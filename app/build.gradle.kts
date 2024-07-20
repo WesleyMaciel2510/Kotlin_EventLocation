@@ -92,7 +92,8 @@ dependencies {
     //serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1")
     implementation(libs.androidx.compose.material)
-
+    implementation(libs.androidx.constraintlayout)
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13")
     // new libs end block ==============
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
