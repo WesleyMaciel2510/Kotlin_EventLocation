@@ -4,6 +4,11 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
+import android.util.Patterns
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
@@ -26,13 +31,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.kotlin_portfolio.views.CodeInfoViewModel
 
 @Composable
 fun CameraScreen(modifier: Modifier = Modifier, navController: NavHostController) {
-    val viewModel: CodeInfoViewModel = viewModel()
 
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -72,12 +74,15 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavHostController
         if (hasCamPermission) {
             if (hasReadCode) {
                 Log.d("qrcode","CODE ================ $code")
-                navController.navigate("profile")
-                viewModel.updateCodeInfo(code)
-                /*LoadWebUrl(code)
-                BackHandler {
-                    restartApp(context)
-                }*/
+                if (isUrl(code)){
+                    Log.d("qrcode","CODE isUrl ================ $code")
+
+                    LoadWebUrl(navController, code)
+                } else {
+                    Log.d("qrcode","CODE GOES TO PROFILE SCREEN ================ $code")
+                    navController.navigate("profile/$code")
+
+                }
             } else {
                 AndroidView(
                     factory = { context: Context ->
@@ -117,8 +122,8 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavHostController
     }
 }
 
-/*@Composable
-fun LoadWebUrl(url: String) {
+@Composable
+fun LoadWebUrl(navController: NavHostController, url: String) {
     AndroidView(factory = {
         WebView(it).apply {
             settings.apply {
@@ -130,5 +135,13 @@ fun LoadWebUrl(url: String) {
             loadUrl(url)
         }
     })
-}*/
+
+    BackHandler {
+        navController.popBackStack()
+    }
+}
+
+fun isUrl(code: String): Boolean {
+    return Patterns.WEB_URL.matcher(code).matches()
+}
 

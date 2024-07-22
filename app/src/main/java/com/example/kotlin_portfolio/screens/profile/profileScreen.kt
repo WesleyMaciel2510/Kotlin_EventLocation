@@ -24,8 +24,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,7 +38,6 @@ import androidx.navigation.NavHostController
 import com.example.kotlin_portfolio.R
 import com.example.kotlin_portfolio.components.buttons.IconAndLabelButton
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
-import com.example.kotlin_portfolio.views.CodeInfoViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -52,9 +49,7 @@ import com.google.accompanist.permissions.shouldShowRationale
 fun ProfileScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    viewModel: CodeInfoViewModel? = null) {
-
-    val currentCodeInfo by (viewModel?.codeInfo ?: mutableStateOf(""))
+    codeInfo: String) {
 
     //Camera Permission
     val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
@@ -129,7 +124,6 @@ fun ProfileScreen(
                 }
             }
             Column(
-                modifier = Modifier.padding(top = 30.dp)
             ) {
                 IconAndLabelButton(
                     buttonLabel = "Edit Your Profile",
@@ -155,7 +149,8 @@ fun ProfileScreen(
 
                 )
                 Text(
-                    text = currentCodeInfo.ifEmpty { "No code information available" },
+                    text = codeInfo,
+                    //text = codeInfo.ifEmpty { "No code information available" },
                     style = TextStyle(
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,

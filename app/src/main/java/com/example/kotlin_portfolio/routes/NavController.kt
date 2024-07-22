@@ -13,7 +13,7 @@ import com.example.kotlin_portfolio.screens.profile.ProfileScreen
 import com.example.kotlin_portfolio.screens.wallet.WalletScreen
 
 @Composable
-fun AppNavigation(navController: NavHostController, modifier: Modifier) {
+fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             HomeScreen(navController = navController)
@@ -22,19 +22,21 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier) {
             MapScreen(navController = navController, modifier = Modifier)
         }
         composable("eventItem/{eventInfo}") {
-            val eventInfo = it.arguments?.getString("eventInfo")?: "No Data Available"
+            val eventInfo = it.arguments?.getString("eventInfo") ?: "No Data Available"
             EventItemScreen(navController = navController, dataJson = eventInfo)
         }
+        composable("profile/{codeInfo}") { backStackEntry ->
+            val codeInfo = backStackEntry.arguments?.getString("codeInfo") ?: ""
+            ProfileScreen(navController = navController, codeInfo = codeInfo)
+        }
         composable("profile") {
-            ProfileScreen(navController = navController)
+            ProfileScreen(navController = navController, codeInfo = "")
         }
         composable("wallet") {
             WalletScreen(navController = navController)
         }
-
         composable("camera") {
             CameraScreen(navController = navController)
         }
-
     }
 }
