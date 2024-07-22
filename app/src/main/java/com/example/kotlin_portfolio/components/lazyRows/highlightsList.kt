@@ -1,7 +1,9 @@
 package com.example.kotlin_portfolio.components.lazyRows
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,60 +24,19 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.kotlin_portfolio.R
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
-
-data class HightLighItem(
-    val imageRes: Int,
-    val title: String,
-    val local: String,
-    val eventDate: String
-)
-
-val HightLightItems = listOf(
-    HightLighItem(
-        R.drawable.banner5,
-        "BlockBusters House",
-        "Instituto Inhotim - Brumadinho, MG",
-        "2024-07-10"
-    ),
-    HightLighItem(
-        R.drawable.banner6,
-        "Theater",
-        "Museu do Amanhã - Rio de Janeiro",
-        "12JUL"
-    ),
-    HightLighItem(
-        R.drawable.banner7,
-        "StandUp Comedy",
-        "Rua XV de Novembro, 789 - Curitiba, PR",
-        "07JUL-08JUL"
-    ),
-    HightLighItem(
-        R.drawable.banner8,
-        "Online Events",
-        "press to see the website",
-        "14JUL-15JUL"
-    ),
-    HightLighItem(
-        R.drawable.banner9,
-        "Theater Show",
-        "SESI - Uberaba - Minas Gerais",
-        "14JUL-15JUL"
-    ),
-    HightLighItem(
-        R.drawable.banner10,
-        "Theater Show",
-        "SESI - Uberaba - Minas Gerais",
-        "21JUL-13JUL"
-    ),
-)
+import com.example.kotlin_portfolio.utils.AllEvents
+import com.example.kotlin_portfolio.utils.AllEventsItem
+import com.example.kotlin_portfolio.utils.serializeEvent
 
 @Composable
-fun HightLighLazyRow(modifier: Modifier = Modifier) {
+fun HighLightLazyRow(modifier: Modifier = Modifier, navController: NavController) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -104,20 +65,29 @@ fun HightLighLazyRow(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(HightLightItems) { item ->
-                HightLighItemView(item)
+            items(AllEvents.subList(11, 20)) { item ->
+                HighLightItemView(item, navController)
             }
         }
     }
 }
 
 @Composable
-fun HightLighItemView(item: HightLighItem) {
+fun HighLightItemView(item: AllEventsItem, navController: NavController) {
     Column(
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
             .clip(RoundedCornerShape(15.dp))
             .padding(end = 10.dp)
+            .clickable {
+                val eventJson = serializeEvent(item)
+
+                Log.d("Item", "@ ITEM CLICKED")
+                Log.d("Item", "@ ITEM = $item")
+                Log.d("Item", "@ EVENT JSON = $eventJson")
+
+                navController.navigate("eventItem/$eventJson")
+            }
     ) {
         val image: Painter = painterResource(id = item.imageRes)
         Image(
@@ -140,8 +110,8 @@ fun HightLighItemView(item: HightLighItem) {
                     color = Color.Black,
                 ),
                 modifier = Modifier.
-                padding(bottom = 8.dp)
-
+                padding(bottom = 8.dp),
+                overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = item.local,
@@ -150,7 +120,8 @@ fun HightLighItemView(item: HightLighItem) {
                     fontWeight = FontWeight.Normal,
                     color = Color.Black,
                 ),
-                modifier = Modifier.padding(bottom = 4.dp)
+                modifier = Modifier.padding(bottom = 4.dp),
+                overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = "Date: ${item.eventDate}",
@@ -159,7 +130,8 @@ fun HightLighItemView(item: HightLighItem) {
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFFC96908),
                 ),
-                modifier = Modifier
+                modifier = Modifier,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }
@@ -167,6 +139,7 @@ fun HightLighItemView(item: HightLighItem) {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewHightLighLazyRow() {
-    HightLighLazyRow()
+fun PreviewHighLightLazyRow() {
+    val navController = rememberNavController()
+    HighLightLazyRow(navController = navController)
 }

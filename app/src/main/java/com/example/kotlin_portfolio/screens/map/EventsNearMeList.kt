@@ -1,5 +1,3 @@
-@file:Suppress("IMPLICIT_CAST_TO_ANY")
-
 package com.example.kotlin_portfolio.screens.map
 
 import android.content.Context
@@ -38,36 +36,47 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_portfolio.components.buttons.IconAndLabelButton
 import com.example.kotlin_portfolio.services.openGoogleMaps
-import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
-import com.example.kotlin_portfolio.utils.EventsNearMeItem
-import com.example.kotlin_portfolio.utils.EventsNearMeItems
+import com.example.kotlin_portfolio.utils.AllEventsItem
 import com.example.kotlin_portfolio.utils.serializeEvent
 
 @Composable
-fun EventsNearMeList(
+fun EventsNearMe(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    events: List<EventsNearMeItem>,
     context: Context?,
     latitude: Double?,
     longitude: Double?,
-    address: String?
+    address: String?,
 ) {
     var itemPressed by remember { mutableStateOf<Int?>(null) }
     var locationPressed by remember { mutableStateOf("") }
+
+    // Filter Near Events ==============================================================
+    // Initialize filteredEvents as an empty list
+    var filteredEvents: List<AllEventsItem> = emptyList()
+
+    // Filter the nearest events before showing on the screen
+    if (latitude != null && longitude != null) {
+        filteredEvents = findNearestEvents(latitude, longitude)
+        Log.d("Location", "### filteredEvents = $filteredEvents")
+
+    } else {
+        // User needs to enable GPS,
+        // Display all events and create a message to the user to enable GPS
+        Log.d("Location", "Location Not Found, \nUnable to Filter Near Events ")
+    }
+    // Determine which list to pass to EventsNearMe
+    Log.d("Item", "@ filteredEvents = $filteredEvents")
 
     Column(
         modifier = modifier
@@ -153,7 +162,7 @@ fun EventsNearMeList(
             )
 
             Column {
-                events.forEachIndexed { index, event ->
+                filteredEvents.forEachIndexed { index, event ->
                     EventNearMeItemView(
                         item = event,
                         isSelected = itemPressed == index,
@@ -162,6 +171,8 @@ fun EventsNearMeList(
 
                             Log.d("Item", "@ GO TO EVENT DETAILS")
                             Log.d("Item", "@ ITEM PRESSED = $event")
+                            Log.d("Item", "@ EVENT JSON = $eventJson")
+
                             navController.navigate("eventItem/$eventJson" )
                         },
 
@@ -179,7 +190,7 @@ fun EventsNearMeList(
 }
 
 @Composable
-fun EventNearMeItemView(item: EventsNearMeItem,isSelected: Boolean, onClick: () -> Unit, onLongPress: () -> Unit) {
+fun EventNearMeItemView(item: AllEventsItem,isSelected: Boolean, onClick: () -> Unit, onLongPress: () -> Unit) {
     Column(
         modifier = Modifier
             .clip(RoundedCornerShape(15.dp))
@@ -192,7 +203,7 @@ fun EventNearMeItemView(item: EventsNearMeItem,isSelected: Boolean, onClick: () 
                 )
             }
     ) {
-        val image: Painter = painterResource(id = item.imageRes.toInt())
+        val image: Painter = painterResource(id = item.imageRes)
         Image(
             painter = image,
             contentDescription = item.title,
@@ -243,9 +254,9 @@ fun EventNearMeItemView(item: EventsNearMeItem,isSelected: Boolean, onClick: () 
     }
 }
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
-fun PreviewEventsNearMeList() {
+fun PreviewEventsNearMe() {
     Kotlin_PortfolioTheme {
         val navController = rememberNavController()
 
@@ -256,4 +267,4 @@ fun PreviewEventsNearMeList() {
         EventsNearMeList(context = context , events = EventsNearMeItems, latitude = latitude ,
             longitude = longitude, address = address, navController = navController)
     }
-}
+}*/

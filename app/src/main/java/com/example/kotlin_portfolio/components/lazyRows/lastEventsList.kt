@@ -1,7 +1,9 @@
 package com.example.kotlin_portfolio.components.lazyRows
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,54 +24,20 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.kotlin_portfolio.R
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
-
-data class LastEventItem(
-    val imageRes: Int,
-    val title: String,
-    val local: String,
-    val eventDate: String
-)
-
-val LastEventItems = listOf(
-    LastEventItem(
-        R.drawable.banner1,
-        "BlockBusters House",
-        "Instituto Inhotim - Brumadinho, MG",
-        "2024-07-10"
-    ),
-    LastEventItem(
-        R.drawable.banner2,
-        "Theater",
-        "Museu do Amanhã - Rio de Janeiro",
-        "12JUL"
-    ),
-    LastEventItem(
-        R.drawable.banner3,
-        "StandUp Comedy",
-        "Rua XV de Novembro, 789 - Curitiba, PR",
-        "07JUL-08JUL"
-    ),
-    LastEventItem(
-        R.drawable.banner4,
-        "Online Events",
-        "press to see the website",
-        "14JUL-15JUL"
-    ),
-    LastEventItem(
-        R.drawable.banner5,
-        "Theater Show",
-        "SESI - Uberaba - Minas Gerais",
-        "14JUL-15JUL"
-    ),
-)
+import com.example.kotlin_portfolio.utils.AllEvents
+import com.example.kotlin_portfolio.utils.AllEventsItem
+import com.example.kotlin_portfolio.utils.serializeEvent
 
 @Composable
-fun LastEventLazyRow(modifier: Modifier = Modifier) {
+fun LastEventLazyRow(modifier: Modifier = Modifier, navController: NavController) {
+    //val (start, end) = generateRandomRangeWithInterval(1, 30, 5, 10)
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -92,25 +60,34 @@ fun LastEventLazyRow(modifier: Modifier = Modifier) {
                 .width(330.dp)
                 .height(1.dp)
                 .background(color = Color.LightGray)
-                .padding(end = 20.dp,)
+                .padding(end = 20.dp)
         )
         LazyRow(
             modifier = Modifier.padding(vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(LastEventItems) { item ->
-                LastEventItemView(item)
+            items(AllEvents.subList(0, 9)) { item ->
+                LastEventItemView(item, navController)
             }
         }
     }
 }
 
 @Composable
-fun LastEventItemView(item: LastEventItem) {
+fun LastEventItemView(item: AllEventsItem, navController: NavController) {
     Column(
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
             .clip(RoundedCornerShape(15.dp))
+            .clickable {
+                val eventJson = serializeEvent(item)
+
+                Log.d("Item", "@ ITEM CLICKED")
+                Log.d("Item", "@ ITEM = $item")
+                Log.d("Item", "@ EVENT JSON = $eventJson")
+
+                navController.navigate("eventItem/$eventJson")
+            }
     ) {
         val image: Painter = painterResource(id = item.imageRes)
         Image(
@@ -132,8 +109,8 @@ fun LastEventItemView(item: LastEventItem) {
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
                 ),
-                modifier = Modifier.
-                padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = 8.dp),
+                        overflow = TextOverflow.Ellipsis
 
             )
             Text(
@@ -143,7 +120,8 @@ fun LastEventItemView(item: LastEventItem) {
                     fontWeight = FontWeight.Normal,
                     color = Color.Black,
                 ),
-                modifier = Modifier.padding(bottom = 4.dp)
+                modifier = Modifier.padding(bottom = 4.dp),
+                overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = "Date: ${item.eventDate}",
@@ -152,7 +130,8 @@ fun LastEventItemView(item: LastEventItem) {
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFFC96908),
                 ),
-                modifier = Modifier
+                modifier = Modifier,
+                        overflow = TextOverflow.Ellipsis
             )
         }
     }
@@ -161,5 +140,6 @@ fun LastEventItemView(item: LastEventItem) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewLastEventLazyRow() {
-    LastEventLazyRow()
+    val navController = rememberNavController()
+    LastEventLazyRow(navController = navController)
 }

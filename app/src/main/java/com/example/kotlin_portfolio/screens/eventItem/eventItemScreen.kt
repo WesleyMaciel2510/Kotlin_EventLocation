@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
@@ -26,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,7 +36,6 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.kotlin_portfolio.R
 import com.example.kotlin_portfolio.components.buttons.IconAndLabelButton
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
@@ -47,6 +49,7 @@ fun EventItemScreen(modifier: Modifier = Modifier, navController: NavHostControl
         val (scrollContent, button) = createRefs()
         val eventInfo = deserializeEvent(dataJson)
 
+        Log.d("EVENTITEM", "EVENT INFO LOADED =  $eventInfo" )
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
@@ -57,7 +60,7 @@ fun EventItemScreen(modifier: Modifier = Modifier, navController: NavHostControl
                 }
         ) {
             Image(
-                painter = painterResource(id = R.drawable.banner1),
+                painter = painterResource(eventInfo.imageRes),
                 contentDescription = "description",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth()
@@ -70,7 +73,7 @@ fun EventItemScreen(modifier: Modifier = Modifier, navController: NavHostControl
                 Text(
                     text = eventInfo.title,
                     style = TextStyle(
-                        fontSize = 20.sp,
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = LightColorScheme.outline,
                     ),
@@ -90,6 +93,9 @@ fun EventItemScreen(modifier: Modifier = Modifier, navController: NavHostControl
                         color = Color.Black,
                     ),
                     modifier = Modifier.padding(vertical = 24.dp)
+                    .fillMaxWidth(),
+                    maxLines = Int.MAX_VALUE,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = "Date: ${eventInfo.eventDate}",
@@ -117,7 +123,7 @@ fun EventItemScreen(modifier: Modifier = Modifier, navController: NavHostControl
                             Text(
                                 text = "Ministério da Cultura, Governo de Minas Gerais, Vivo e Instituto Inhotim apresentam: Jardim Sonoro - Festival de Música Inhotim.",
                                 fontWeight = FontWeight.Bold,
-                                style = TextStyle(fontSize = 22.sp, color = Color(0xFF4F55C9)),
+                                style = TextStyle(fontSize = 22.sp),
                                 textAlign = TextAlign.Start,
                                 modifier = Modifier.padding(bottom = 20.dp)
                             )
@@ -163,6 +169,7 @@ fun EventItemScreen(modifier: Modifier = Modifier, navController: NavHostControl
                 .fillMaxWidth()
         ) {
             IconAndLabelButton(
+                iconName = Icons.Default.AddCircle,
                 buttonLabel = "BUY TICKETS",
                 buttonColor = LightColorScheme.secondary,
                 onClick = {

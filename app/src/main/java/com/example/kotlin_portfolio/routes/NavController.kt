@@ -14,7 +14,7 @@ import com.example.kotlin_portfolio.screens.wallet.WalletScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifier) {
-    NavHost(navController = navController, startDestination = "camera") {
+    NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             HomeScreen(navController = navController)
         }

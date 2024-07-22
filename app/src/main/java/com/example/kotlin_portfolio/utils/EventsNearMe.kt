@@ -1,3 +1,4 @@
+/*
 package com.example.kotlin_portfolio.utils
 
 import com.example.kotlin_portfolio.R
@@ -10,12 +11,12 @@ data class EventsNearMeItem(
     val title: String,
     val local: String,
     val eventDate: String,
-    val geolocation: Geolocation,
+    val geolocation: Geolocation2,
     val distance: String?
 )
 
 @Serializable
-data class Geolocation(
+data class Geolocation2(
     val latitude: Double,
     val longitude: Double
 )
@@ -28,11 +29,11 @@ val EventsNearMeItems = listOf(
         "Instituto Inhotim - Brumadinho, MG",
         "27JUN",
         Geolocation(-19.934251, -44.198421),
-        ' '.toString()
+        ""
     ),
     EventsNearMeItem(
         R.drawable.banner2,
-        "Theater",
+        "Palestra Empresarial: você como foco",
         "Museu do Amanhã - Rio de Janeiro",
         "12JUL",
         Geolocation(-22.894597, -43.181252),
@@ -41,7 +42,7 @@ val EventsNearMeItems = listOf(
     ),
     EventsNearMeItem(
         R.drawable.banner3,
-        "StandUp Comedy",
+        "Museu Nova Arte",
         "XV de Novembro, 789 - Curitiba, PR",
         "07JUL-08JUL",
         Geolocation(-25.428954, -49.267137),
@@ -50,14 +51,14 @@ val EventsNearMeItems = listOf(
     EventsNearMeItem(
         R.drawable.banner4,
         "BlockBusters House ",
-        "Instituto Inhotim - Brumadinho, MG",
+        "R. Palestra Itália, 500 - Perdizes, São Paulo - SP",
         "14JUL-15JUL",
-        Geolocation(-19.74833, -47.931941),
+        Geolocation(-23.526004, -46.681116),
         ' '.toString()
     ),
     EventsNearMeItem(
         R.drawable.banner5,
-        "Theater Show",
+        "Patati Patatá Show",
         "SESI - Uberaba - Minas Gerais",
         "14JUL-15JUL",
         Geolocation(-19.738988, -47.931486),
@@ -65,8 +66,8 @@ val EventsNearMeItems = listOf(
     ),
     EventsNearMeItem(
         R.drawable.banner6,
-        "Music Concert",
-        "Praça Rui Barbosa - Uberaba, MG",
+        "Lazer ao Ar Livre",
+        "Parque das Acácias - Uberaba, MG",
         "20JUL",
         Geolocation(-19.741074, -47.930611),
         ' '.toString()
@@ -81,7 +82,7 @@ val EventsNearMeItems = listOf(
     ),
     EventsNearMeItem(
         R.drawable.banner8,
-        "Food Festival",
+        "Music Festival",
         "Parque Fernando Costa - Uberaba, MG",
         "28JUL",
         Geolocation(-19.736630, -47.940590),
@@ -150,4 +151,4 @@ val EventsNearMeItems = listOf(
         Geolocation(-19.735736, -47.943343),
         ' '.toString()
     )
-)
+)*/

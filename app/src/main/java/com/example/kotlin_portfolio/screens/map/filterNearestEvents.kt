@@ -2,8 +2,8 @@ package com.example.kotlin_portfolio.screens.map
 
 import android.annotation.SuppressLint
 import android.util.Log
-import com.example.kotlin_portfolio.utils.EventsNearMeItem
-import com.example.kotlin_portfolio.utils.EventsNearMeItems
+import com.example.kotlin_portfolio.utils.AllEvents
+import com.example.kotlin_portfolio.utils.AllEventsItem
 import kotlin.math.asin
 import kotlin.math.cos
 import kotlin.math.pow
@@ -11,7 +11,7 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 @SuppressLint("DefaultLocale")
-fun findNearestEvents(userLatitude: Double?, userLongitude: Double?): List<EventsNearMeItem> {
+fun findNearestEvents(userLatitude: Double?, userLongitude: Double?): List<AllEventsItem> {
     Log.d("Location", "findNearestEvents called!")
 
     // Ensure latitude and longitude are not null
@@ -29,7 +29,7 @@ fun findNearestEvents(userLatitude: Double?, userLongitude: Double?): List<Event
         return R * c
     }
 
-    val filteredEvents = EventsNearMeItems
+    val filteredEvents = AllEvents
         .map { event ->
             event.geolocation.let { geo ->
                 val distance = haversine(userLatitude, userLongitude, geo.latitude, geo.longitude)

@@ -19,13 +19,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_portfolio.components.tabs.TabComponent
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
-import com.example.kotlin_portfolio.views.CodeInfoViewModel
 
 @Composable
 fun WalletScreen(modifier: Modifier = Modifier, navController: NavHostController) {
-    val viewModel: CodeInfoViewModel = viewModel()
-    // Accessing codeInfo value
-    val codeInfo = viewModel.codeInfo.value
     Column(modifier = modifier) {
         Row(
             modifier = Modifier

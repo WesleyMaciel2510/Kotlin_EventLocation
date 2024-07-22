@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_portfolio.R
@@ -42,8 +43,7 @@ import com.example.kotlin_portfolio.components.buttons.IconAndLabelButton
 import com.example.kotlin_portfolio.services.getAddressFromLocation
 import com.example.kotlin_portfolio.ui.theme.Kotlin_PortfolioTheme
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
-import com.example.kotlin_portfolio.utils.EventsNearMeItem
-import com.example.kotlin_portfolio.utils.EventsNearMeItems
+import com.example.kotlin_portfolio.views.FilteredListViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
@@ -52,7 +52,9 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("MissingPermission")
 @Composable
-fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
+fun MapScreen(navController: NavHostController,
+              modifier: Modifier = Modifier,
+              filteredListViewModel: FilteredListViewModel = viewModel()) {
     val image: Painter = painterResource(id = R.drawable.mapscreen_header)
     // Request Location
     var locationPermission by remember { mutableStateOf(false) }
@@ -124,23 +126,6 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
             getLastKnownLocation(fusedLocationClient)
         }
     }
-
-    // Filter Near Events ==============================================================
-    // Initialize filteredEvents as an empty list
-    var filteredEvents: List<EventsNearMeItem> = emptyList()
-
-    // Filter the nearest events before showing on the screen
-    if (latitude != null && longitude != null) {
-        filteredEvents = findNearestEvents(latitude, longitude)
-        Log.d("Location", "### filteredEvents = $filteredEvents")
-
-    } else {
-        // User needs to enable GPS,
-        // Display all events and create a message to the user to enable GPS
-        Log.d("Location", "Location Not Found, \nUnable to Filter Near Events ")
-    }
-    // Determine which list to pass to EventsNearMeList
-    val eventsToShow = filteredEvents.ifEmpty { EventsNearMeItems }
 
     //======================================================
 
@@ -218,7 +203,7 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
                             buttonColor = LightColorScheme.secondary,
                             onClick = {
                                 Log.d("permission", "cityButton Clicked!")
-                                selectCityManually = true
+                                //selectCityManually = true
                             }
                         )
                     }
@@ -230,9 +215,8 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
         /*if (selectCityManually) {
             SelectCityManually()
         } else {*/
-            EventsNearMeList(
+        EventsNearMe(
                 navController = navController,
-                events = eventsToShow,
                 context = context,
                 latitude = latitude,
                 longitude = longitude,
@@ -241,7 +225,6 @@ fun MapScreen(navController: NavHostController, modifier: Modifier = Modifier) {
         //}
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
