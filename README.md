@@ -1,7 +1,11 @@
 # 🌍 Kotlin_Portfolio 📅 
 
-This Jetpack Compose application is designed for effective event management and location-based functionalities. The app Retrieves the user's current location and calculates distances to events using the Haversine formula. This enables users to find and view events that are nearest to them.
+This Jetpack Compose application is designed for effective event management and location-based functionalities. 
+
+The app Retrieves the user's current location and calculates distances to events using the Haversine formula. This enables users to find and view events that are nearest to them.
+
 It can Displays a list of the nearest events by filtering from the comprehensive "AllEvents" list, providing users with relevant and location-specific information.
+
 Also, it is composed to a QR Code Scanning that Integrates capabilities that decode QR codes and direct users to URLs via an embedded WebView, facilitating easy access to web-based content. This application leverages Jetpack Compose for a modern and responsive UI, ensuring a smooth and intuitive user experience.
 
 
