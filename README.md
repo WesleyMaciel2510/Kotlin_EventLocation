@@ -4,13 +4,12 @@ This Jetpack Compose application is designed for effective event management and 
 It can Displays a list of the nearest events by filtering from the comprehensive "AllEvents" list, providing users with relevant and location-specific information.
 Also, it is composed to a QR Code Scanning that Integrates capabilities that decode QR codes and direct users to URLs via an embedded WebView, facilitating easy access to web-based content. This application leverages Jetpack Compose for a modern and responsive UI, ensuring a smooth and intuitive user experience.
 
-https://github.com/user-attachments/assets/f45df7fe-adb9-4d9e-bda5-a2779e4ae1c2
 
-https://github.com/user-attachments/assets/082c09c4-084c-477d-9a2a-d5869eb5dc62
+https://github.com/user-attachments/assets/f2e9ed79-7f95-4a19-a684-cc99fc32ce98
 
+https://github.com/user-attachments/assets/2df402b7-6b7f-4a54-a5eb-4f4abd4f585b
 
-https://github.com/user-attachments/assets/b953299a-eda6-496a-b16e-4daf557b6526
-
+https://github.com/user-attachments/assets/dfc81a29-469e-4da0-b8ae-3382fee925e8
 
 ## UI Screenshot 📱
 ![a3230a1f-399f-4d56-99c2-07bcb39ccdfc](https://github.com/user-attachments/assets/82c22807-93c8-4d99-8a91-11e9274e7a95)
