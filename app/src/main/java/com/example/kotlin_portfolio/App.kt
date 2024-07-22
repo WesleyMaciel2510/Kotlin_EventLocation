@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_portfolio.routes.AppNavigation
 import com.example.kotlin_portfolio.ui.theme.LightColorScheme
@@ -26,7 +25,6 @@ fun App(startDestination: String = "home") {
                 .fillMaxSize()
                 .padding(innerPadding)
                 .background(color = LightColorScheme.background)
-                .padding(bottom = 10.dp)
         ) {
             AppNavigation(navController = navController, modifier = Modifier.weight(1f))
         }
